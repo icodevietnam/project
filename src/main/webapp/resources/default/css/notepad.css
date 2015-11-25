@@ -1,0 +1,183 @@
+/* CSS Document */
+
+
+/*Welcome to the Css for Notepad
+Please note that the !important you 
+see is a hack for firefox/IE.
+The line with !important controls
+properties in Firefox, the line below
+for IE  */
+
+
+
+body  {
+background:url("../img/student.jpg") ;
+background-size : 100%;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+.home .title{
+	font-weight: 800;
+	font-size: 35px;
+	display: block;
+	margin-bottom: 20px;
+}
+
+.home .content{
+	display: block;
+	margin-bottom: 20px;
+}
+
+#navigation{
+	margin: auto;
+	width: 980px;
+}
+
+
+/*  HEADER  */
+
+
+#header {
+
+margin-left:5px;
+width:100%;
+padding-bottom:1px;
+padding-left:70px;
+
+padding-top:7px !important;
+padding-top:28px;
+
+}
+
+#header h1 {
+font-family:trebuchet MS, arial, times, helvetica, arial, sans-serif;
+font-size:33px;
+
+color:#000;
+font-weight:normal;
+}
+
+/*  CONTAINER BOX  */
+
+
+#box  {
+background-color : white;
+width:980px;
+margin:auto;
+margin-top:-20px;
+}
+
+#box p  {
+padding-left:20px;
+}
+
+
+/* MAIN CONTENT */
+
+
+#content p {
+padding-bottom:9.5px !important;
+padding-bottom:6px;
+}
+
+#content {
+margin-left:45px;
+
+margin-top:23px !important;
+margin-top:28px;
+
+font-family:verdana, arial, times, helvetica, arial, sans-serif;
+font-size:14px;
+color:#404040;
+
+line-height:1.8em !important;
+line-height:1.75em;
+
+}
+
+
+/*TOP NAVIGATION*/
+
+
+
+#nav {
+float:right;
+
+margin-top:-48px !important;
+margin-top:-45px;
+
+margin-right:19px;
+font-family:verdana, arial, times, helvetica, arial, sans-serif;
+font-size:15px;
+}
+
+#nav a, #content a {
+color: orange;
+text-decoration:none;
+
+}
+
+#nav a:hover, #content a:hover  {
+text-decoration:underline;
+color:#000;
+}
+
+#title{
+	margin: auto;
+	width: 980px;
+	color: white;	
+}
+
+.error{
+	color:red;
+}
+
+#title .title-text{
+	font-size: 25px;
+	display: block;
+	color: white;
+	margin-top: 15px;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+.sub  {
+font-size:18px;
+font-weight:normal;
+padding-left:13px;
+font-family:trebuchet MS, arial, times, helvetica, arial, sans-serif;
+
+color:#000;
+}
+
+
+/*FOOTER PROPERTIES*/
+
+
+#footer {
+width:581px;
+color:#000;
+padding-bottom:60px;
+padding-top:3px;
+font-family:verdana, arial, times, helvetica, arial, sans-serif;
+font-size:12px;
+margin-bottom:3px;
+
+margin-left:15px !important;
+margin-left:20px;
+
+line-height:1.75em;
+height:40px;
+text-align:center;
+}
+
+#footer a {
+color:#808080;
+text-decoration:none;
+}
+
+#footer a:hover  {
+text-decoration:underline;
+color:#000;
+}
