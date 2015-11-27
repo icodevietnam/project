@@ -1,6 +1,5 @@
 /* CSS Document */
 
-
 /*Welcome to the Css for Notepad
 Please note that the !important you 
 see is a hack for firefox/IE.
@@ -8,132 +7,162 @@ The line with !important controls
 properties in Firefox, the line below
 for IE  */
 
-
-
-body  {
-background:url("../img/student.jpg") ;
-background-size : 100%;
-background-repeat: no-repeat;
-background-attachment: fixed;
+.navbar,.navbar-default{
+	border-radius : 0px;
+	width: 1000px;
 }
 
-.home .title{
+#top{
+	background: #f2f2f2;
+}
+
+#top .top-container {
+	margin: auto;
+	width: 1000px;
+}
+
+body {
+	background: url("../img/wallpaper.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.home .title {
 	font-weight: 800;
 	font-size: 35px;
 	display: block;
 	margin-bottom: 20px;
 }
 
-.home .content{
+.home .content {
 	display: block;
 	margin-bottom: 20px;
 }
 
-#navigation{
+#navigation {
 	margin: auto;
-	width: 980px;
+	width: 1000px;
 }
 
-
 /*  HEADER  */
-
-
 #header {
-
-margin-left:5px;
-width:100%;
-padding-bottom:1px;
-padding-left:70px;
-
-padding-top:7px !important;
-padding-top:28px;
-
+	margin-left: 5px;
+	width: 100%;
+	padding-bottom: 1px;
+	padding-left: 70px;
+	padding-top: 7px !important;
+	padding-top: 28px;
 }
 
 #header h1 {
-font-family:trebuchet MS, arial, times, helvetica, arial, sans-serif;
-font-size:33px;
-
-color:#000;
-font-weight:normal;
+	font-family: trebuchet MS, arial, times, helvetica, arial, sans-serif;
+	font-size: 33px;
+	color: #000;
+	font-weight: normal;
 }
 
 /*  CONTAINER BOX  */
-
-
-#box  {
-background-color : white;
-width:980px;
-margin:auto;
-margin-top:-20px;
+#box {
+	background-color: white;
+	width: 1000px;
+	margin: auto;
+	margin-top: -20px;
 }
 
-#box p  {
-padding-left:20px;
+#box p {
+	padding-left: 20px;
 }
-
 
 /* MAIN CONTENT */
-
-
 #content p {
-padding-bottom:9.5px !important;
-padding-bottom:6px;
+	padding-bottom: 9.5px !important;
+	padding-bottom: 6px;
 }
 
 #content {
-margin-left:45px;
-
-margin-top:23px !important;
-margin-top:28px;
-
-font-family:verdana, arial, times, helvetica, arial, sans-serif;
-font-size:14px;
-color:#404040;
-
-line-height:1.8em !important;
-line-height:1.75em;
-
+	margin-left: 0px;
+	margin-top: 23px !important;
+	margin-top: 28px;
+	font-family: verdana, arial, times, helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: #404040;
+	line-height: 1.8em !important;
+	line-height: 1.75em;
 }
 
-
 /*TOP NAVIGATION*/
-
-
-
 #nav {
-float:right;
+	float: right;
+	margin-top: -48px !important;
+	margin-top: -45px;
+	margin-right: 19px;
+	font-family: verdana, arial, times, helvetica, arial, sans-serif;
+	font-size: 15px;
+}
 
-margin-top:-48px !important;
-margin-top:-45px;
+#header-top{
+	background: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid silver;
+}
 
-margin-right:19px;
-font-family:verdana, arial, times, helvetica, arial, sans-serif;
-font-size:15px;
+#header-top .header-ad{
+	margin: auto;
+	width: 1000px;	
+	margin-top: 10px;
+}
+
+#advertisment{
+	background:#fff;
+	margin: auto;
+	width: 1000px;
+	padding-top: 20px;
+	padding-bottom: 50px;
+}
+
+#advertisment img{
+	width: 1000px;
+}
+
+#header-top .header-ad-bot{
+	margin:auto;
+	width:1000px;
+	margin-top: 10px;
+}
+
+.navbar {
+	border: 0px;
 }
 
 #nav a, #content a {
-color: orange;
-text-decoration:none;
-
+	color: orange;
+	text-decoration: none;
 }
 
-#nav a:hover, #content a:hover  {
-text-decoration:underline;
-color:#000;
+#top-nav-bar{
+	margin-bottom: 0px;
+	background: #f2f2f2;
+	border: 0px;
 }
 
-#title{
+#nav a:hover, #content a:hover {
+	text-decoration: underline;
+	color: #000;
+}
+
+#title {
 	margin: auto;
-	width: 980px;
-	color: white;	
+	width: 1000px;
+	color: white;
 }
 
-.error{
-	color:red;
+.error {
+	color: red;
 }
 
-#title .title-text{
+#title .title-text {
 	font-size: 25px;
 	display: block;
 	color: white;
@@ -142,42 +171,36 @@ color:#000;
 	margin-bottom: 20px;
 }
 
-.sub  {
-font-size:18px;
-font-weight:normal;
-padding-left:13px;
-font-family:trebuchet MS, arial, times, helvetica, arial, sans-serif;
-
-color:#000;
+.sub {
+	font-size: 18px;
+	font-weight: normal;
+	padding-left: 13px;
+	font-family: trebuchet MS, arial, times, helvetica, arial, sans-serif;
+	color: #000;
 }
 
-
 /*FOOTER PROPERTIES*/
-
-
 #footer {
-width:581px;
-color:#000;
-padding-bottom:60px;
-padding-top:3px;
-font-family:verdana, arial, times, helvetica, arial, sans-serif;
-font-size:12px;
-margin-bottom:3px;
-
-margin-left:15px !important;
-margin-left:20px;
-
-line-height:1.75em;
-height:40px;
-text-align:center;
+	width: 581px;
+	color: #000;
+	padding-bottom: 60px;
+	padding-top: 3px;
+	font-family: verdana, arial, times, helvetica, arial, sans-serif;
+	font-size: 12px;
+	margin-bottom: 3px;
+	margin-left: 15px !important;
+	margin-left: 20px;
+	line-height: 1.75em;
+	height: 40px;
+	text-align: center;
 }
 
 #footer a {
-color:#808080;
-text-decoration:none;
+	color: #808080;
+	text-decoration: none;
 }
 
-#footer a:hover  {
-text-decoration:underline;
-color:#000;
+#footer a:hover {
+	text-decoration: underline;
+	color: #000;
 }

@@ -51,86 +51,79 @@
 <script src="<c:url value='/resources/default/js/bootstrap-select.js'/>"></script>
 </head>
 <body>
-	<div id="title">
-		<span class='title-text'>External Examiner</span>
-	</div>
-	<div id="navigation">
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="<c:url value='/home'/>">Home</a>
-				</div>
+	<div id="top">
+		<div class="top-container">
+			<!-- Create a menu -->
+			<nav id="top-nav-bar" class="navbar navbar-default">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">HCM</a>
+					</div>
 
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<c:if test="${student == null}">
-							<li><a href="<c:url value='/register'/>">Register</a></li>
-							<li><a href="#" data-toggle="modal"
-								data-target="#loginModal">Login</a></li>
-						</c:if>
-						<c:if test="${student != null}">
-							<li><a href="<c:url value='/member/score'/>">Score &
-									Conduct</a></li>
-						</c:if>
-						<c:forEach var="faculty" items="${listFaculties}">
-							<li><a href="<c:url value='/program/${faculty.id}'/>">${faculty.name}</a></li>
-						</c:forEach>
-						<c:if test="${student != null}">
-							<li><a href="<c:url value='/member/logout'/>">Log Out
-									[${student.fullName}]</a></li>
-						</c:if>
-						<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Dropdown <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li> -->
-					</ul>
-					<!-- <form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form> -->
-					<!-- <ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Link</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Dropdown <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul></li>
-					</ul> -->
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse"
+						id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Restaurant<span
+									class="sr-only">(current)</span></a></li>
+							<li><a href="#">Link</a></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Dropdown <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="#">One more separated link</a></li>
+								</ul></li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
 				</div>
-				<!-- /.navbar-collapse -->
+				<!-- /.container-fluid -->
+			</nav>
+		</div>
+	</div>
+	<div id="header-top">
+		<div class="header-ad">
+			<img src="<c:url value='/resources/default/img/ad1.jpg'/>" />
+		</div>
+		<div class="header-ad-bot row">
+			<div class="col-lg-3">
+				<img style="margin-left: -10px;" src="<c:url value='/resources/default/img/logo1.png'/>" />
 			</div>
-			<!-- /.container-fluid -->
-		</nav>
+			<div class="col-lg-9">
+				<form style="margin-left: -120px;" class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputAmount">Amount (in
+							dollars)</label>
+						<div class="input-group">
+							<div class="input-group-addon">Search</div>
+							<input type="text" class="form-control" id="exampleInputAmount"
+								placeholder="Place, Address, Dishes ....">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="advertisment">
+		<img src="<c:url value='/resources/default/img/ads.png'/>" />
 	</div>
 	<div id="box">
 		<div id="header">
-			<span class="error">${message}</span>
-			<h1>${title}</h1>
 		</div>
 		<!--TOP NAVIGATION-->
 		<%-- <tiles:insertAttribute name="navigation" /> --%>
