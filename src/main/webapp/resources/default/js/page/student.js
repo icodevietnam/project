@@ -8,7 +8,7 @@ $(function() {
 			userName : {
 				required : true,
 				remote : {
-					url : '/ewsd/user/checkUsername',
+					url : '/project/user/checkUsername',
 					type : 'post',
 					data :{
 						username : function(){
@@ -34,7 +34,7 @@ $(function() {
 			email : {
 				required : true,
 				remote : {
-					url : '/ewsd/user/checkEmail',
+					url : '/project/user/checkEmail',
 					type : 'post',
 					data :{
 						email : function(){
@@ -156,7 +156,7 @@ function insertItem() {
 		var state = $("#stateBox").val();
 		var phone = $("#phone").val();
 		$.ajax({
-			url : "/ewsd/student/new",
+			url : "/project/student/new",
 			type : "POST",
 			data : {
 				userName : userName,
@@ -194,7 +194,7 @@ function insertItem() {
 function displayTable() {
 	var dataUsers = [];
 	$.ajax({
-		url : "/ewsd/student/getAll",
+		url : "/project/student/getAll",
 		type : "GET",
 		dataType : "JSON",
 		success : function(response) {
@@ -268,7 +268,7 @@ function displayTable() {
 
 function resetPassword(id) {
 	$.ajax({
-		url : "/ewsd/student/resetPassword",
+		url : "/project/student/resetPassword",
 		type : "GET",
 		data : {
 			itemId : id
@@ -286,7 +286,7 @@ function resetPassword(id) {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/student/get",
+		url : "/project/student/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -312,7 +312,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/student/delete",
+			url : "/project/student/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -337,7 +337,7 @@ function editedItem() {
 		var state = $("#updateItemForm .stateBox").val();
 		var phone = $("#updateItemForm .phone").val();
 		$.ajax({
-			url : "/ewsd/student/update",
+			url : "/project/student/update",
 			type : "POST",
 			data : {
 				userId : userId,
@@ -377,7 +377,7 @@ function changePassProcess() {
 	var userId = $("#changeModalForm .userId").val();
 	var password = $("#changeModalForm .password").val();
 	$.ajax({
-		url : "/ewsd/student/changePassword",
+		url : "/project/student/changePassword",
 		type : "POST",
 		data : {
 			userId : userId,

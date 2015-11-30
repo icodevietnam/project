@@ -75,7 +75,7 @@ public class StudentController extends GenericController {
 	}
 
 	@RequestMapping(value = { "/admin/student", "/admin/student/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@Secured({"ROLE_ADMIN","ROLE_PVC","ROLE_DLT","ROLE_PL","ROLE_EE"})
+	@Secured({"ROLE_ADMIN"})
 	public String displayPage(Model model) {
 		model.addAttribute("pageName", "Manage Student");
 		model.addAttribute("title", "Manage Student");

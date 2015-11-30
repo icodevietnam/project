@@ -9,7 +9,7 @@
 				<div class="ibox">
 					<div class="ibox-content">
 						<a href="<c:url value='/admin/user/list'/>" class="btn-link">
-							<h2>Manage Student</h2>
+							<h2>Manage Member</h2>
 						</a>
 						<button data-toggle="modal" data-target="#newItem"class="btn btn-sm btn-primary">Create
 							new</button>

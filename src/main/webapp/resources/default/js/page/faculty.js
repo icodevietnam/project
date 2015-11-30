@@ -42,7 +42,7 @@ $(function() {
 /*function showImage(id){
 	var link ="";
 	$.ajax({
-		url : "/ewsd/fileAttached/get",
+		url : "/project/fileAttached/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -60,7 +60,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/faculty/getAll",
+		url : "/project/faculty/getAll",
 		type : "GET",
 		dataType : "JSON",
 		async :false,
@@ -104,7 +104,7 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/faculty/get",
+		url : "/project/faculty/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -122,7 +122,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/faculty/delete",
+			url : "/project/faculty/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -139,7 +139,7 @@ function editedItem() {
 	if($("#updateItemForm").valid()){
 		var formData = new FormData($("#updateItemForm")[0]);
 		$.ajax({
-			url : "/ewsd/faculty/update",
+			url : "/project/faculty/update",
 			type : "POST",
 			data :formData ,
 			contentType:false,
@@ -161,7 +161,7 @@ function insertItem() {
 	if($("#newItemForm").valid()){
 		var formData = new FormData($("#newItemForm")[0]);
 		$.ajax({
-			url : "/ewsd/faculty/new",
+			url : "/project/faculty/new",
 			type : "POST",
 			data : formData,
 			contentType:false,

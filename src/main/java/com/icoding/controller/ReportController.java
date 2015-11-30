@@ -42,7 +42,7 @@ public class ReportController extends GenericController {
 	private NotificationService notificationService;
 
 	@RequestMapping(value = { "/admin/report", "/admin/report/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@Secured({ "ROLE_ADMIN", "ROLE_PVC", "ROLE_DLT", "ROLE_EE", "ROLE_PL" })
+	@Secured({ "ROLE_ADMIN"})
 	public String displayPage(Model model) {
 		int countReport = checkOverdue();
 		model.addAttribute("pageName", "Manage Report");

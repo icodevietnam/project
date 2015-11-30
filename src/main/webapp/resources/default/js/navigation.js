@@ -4,7 +4,7 @@ $(function(){
 
 /*function loadDepartment(){
 	$.ajax({
-		url : "/ewsd/deparment/getCurrentUserDepartment",
+		url : "/project/deparment/getCurrentUserDepartment",
 		type:"GET",
 		dataType:"text",
 		success:function(data){

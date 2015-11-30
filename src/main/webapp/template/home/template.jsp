@@ -51,8 +51,9 @@
 <script src="<c:url value='/resources/default/js/bootstrap-select.js'/>"></script>
 </head>
 <body>
-	<div id="title">
-		<span class='title-text'>External Examiner</span>
+	<div id="top"></div>
+	<div id="header">
+		<span class='title-text'>FoodyVN</span>
 	</div>
 	<div id="navigation">
 		<nav class="navbar navbar-inverse">

@@ -8,7 +8,7 @@ $(function() {
 			userName:{
 				required:true,
 				remote : {
-					url : '/ewsd/user/checkUsername',
+					url : '/project/user/checkUsername',
 					type : 'post',
 					data :{
 						username : function(){
@@ -31,7 +31,7 @@ $(function() {
 			},email : {
 				required : true,
 				remote : {
-					url : '/ewsd/user/checkEmail',
+					url : '/project/user/checkEmail',
 					type : 'post',
 					data :{
 						email : function(){
@@ -148,7 +148,7 @@ function insertItem() {
 		var state = $("#stateBox").val();
 		var phone = $("#phone").val();
 		$.ajax({
-			url : "/ewsd/user/new",
+			url : "/project/user/new",
 			type : "POST",
 			data : {
 				userName : userName,
@@ -185,7 +185,7 @@ function insertItem() {
 function displayTable() {
 	var dataUsers = [];
 	$.ajax({
-		url : "/ewsd/user/getAll",
+		url : "/project/user/getAll",
 		type : "GET",
 		dataType : "JSON",
 		success : function(response) {
@@ -252,7 +252,7 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/user/get",
+		url : "/project/user/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -277,7 +277,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/user/delete",
+			url : "/project/user/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -303,7 +303,7 @@ function editedItem() {
 		var state = $("#updateItemForm .stateBox").val();
 		var phone = $("#updateItemForm .phone").val();
 		$.ajax({
-			url : "/ewsd/user/update",
+			url : "/project/user/update",
 			type : "POST",
 			data : {
 				userId : userId,
@@ -344,7 +344,7 @@ function changePassProcess(){
 	var userId = $("#changeModalForm .userId").val();
 	var password = $("#changeModalForm .password").val();
 	$.ajax({
-		url : "/ewsd/user/changePassword",
+		url : "/project/user/changePassword",
 		type : "POST",
 		data : {
 			userId : userId,

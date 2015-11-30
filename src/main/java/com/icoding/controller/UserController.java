@@ -57,7 +57,7 @@ public class UserController extends GenericController {
 	}
 
 	@RequestMapping(value = { "/admin/user", "/admin/user/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@Secured({ "ROLE_ADMIN", "ROLE_PVC"})
+	@Secured({ "ROLE_ADMIN"})
 	public String displayPage(Model model) {
 		List<Role> listRoles = new ArrayList<Role>();
 		listRoles = roleService.getAllNotStudent();

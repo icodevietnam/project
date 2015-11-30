@@ -7,7 +7,7 @@ $(function() {
 			userName : {
 				required : true,
 				remote : {
-					url : '/ewsd/user/checkUsername',
+					url : '/project/user/checkUsername',
 					type : 'post',
 					data :{
 						username : function(){
@@ -33,7 +33,7 @@ $(function() {
 			email : {
 				required : true,
 				remote : {
-					url : '/ewsd/user/checkEmail',
+					url : '/project/user/checkEmail',
 					type : 'post',
 					data :{
 						email : function(){
@@ -94,7 +94,7 @@ function insertItem() {
 		var state = $("#stateBox").val();
 		var phone = $("#phone").val();
 		$.ajax({
-			url : "/ewsd/student/new",
+			url : "/project/student/new",
 			type : "POST",
 			data : {
 				userName : userName,

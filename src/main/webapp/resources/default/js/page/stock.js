@@ -48,7 +48,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/stock/getAll",
+		url : "/project/stock/getAll",
 		type : "GET",
 		dataType : "JSON",
 		success : function(response) {
@@ -90,7 +90,7 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/stock/get",
+		url : "/project/stock/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -108,7 +108,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/stock/delete",
+			url : "/project/stock/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -127,7 +127,7 @@ function editedItem() {
 		var stockName = $("#updateItemForm .stockName").val();
 		var stockPosition = $("#updateItemForm .stockPosition").val();
 		$.ajax({
-			url : "/ewsd/stock/update",
+			url : "/project/stock/update",
 			type : "POST",
 			data : {
 				stockId : stockId,
@@ -152,7 +152,7 @@ function insertItem() {
 		var stockName = $("#stockName").val();
 		var stockPosition = $("#stockPosition").val();
 		$.ajax({
-			url : "/ewsd/stock/new",
+			url : "/project/stock/new",
 			type : "POST",
 			data : {
 				stockName : stockName,

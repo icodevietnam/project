@@ -34,7 +34,7 @@ public class ProgramController extends GenericController{
 	private UserService userService;
 
 	@RequestMapping(value = { "/admin/program", "/admin/program/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@Secured({"ROLE_ADMIN","ROLE_PVC","ROLE_DLT","ROLE_PL"})
+	@Secured({"ROLE_ADMIN"})
 	public String displayPage(Model model) {
 		List<Faculty> listFaculties = facultyService.getAll();
 		List<User> listUserEE = userService.getListUserEE();

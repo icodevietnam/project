@@ -22,7 +22,7 @@ public class FacultyController extends GenericController{
 	private FacultyService facultyService;
 
 	@RequestMapping(value = { "/admin/faculty", "/admin/faculty/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@Secured({"ROLE_ADMIN","ROLE_PVC","ROLE_DLT","ROLE_PL"})
+	@Secured({"ROLE_ADMIN"})
 	public String displayPage(Model model) {
 		model.addAttribute("pageName", "Manage Faculty");
 		model.addAttribute("title", "Manage Faculty");

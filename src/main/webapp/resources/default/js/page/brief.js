@@ -37,7 +37,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/brief/getAll",
+		url : "/project/brief/getAll",
 		type : "GET",
 		dataType : "JSON",
 		success : function(response) {
@@ -84,7 +84,7 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/brief/get",
+		url : "/project/brief/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -105,7 +105,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/brief/delete",
+			url : "/project/brief/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -127,7 +127,7 @@ function editedItem() {
 		var stockId = $("#updateItemForm .stockBox").val();
 		var departmentId = $("#updateItemForm .departmentBox").val();
 		$.ajax({
-			url : "/ewsd/brief/update",
+			url : "/project/brief/update",
 			type : "POST",
 			data : {
 				briefId : briefId,
@@ -156,7 +156,7 @@ function insertItem() {
 		var stockId = $("#stockBox").val();
 		var departmentId = $("#departmentBox").val();
 		$.ajax({
-			url : "/ewsd/brief/new",
+			url : "/project/brief/new",
 			type : "POST",
 			data : {
 				content : content,
