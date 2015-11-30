@@ -6,7 +6,7 @@ function displayTable() {
 	var dataDepartments = [];
 	$
 			.ajax({
-				url : "/ewsd/notification/getAll",
+				url : "/project/notification/getAll",
 				type : "GET",
 				dataType : "JSON",
 				async : false,
@@ -48,7 +48,7 @@ function displayTable() {
 
 function setApprove(id){
 	$.ajax({
-		url : "/ewsd/report/setApprove",
+		url : "/project/report/setApprove",
 		type : "POST",
 		data : {
 			reportId : id

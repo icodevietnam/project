@@ -69,7 +69,7 @@ function insertItem() {
 		var biological = $("#biological").val();
 		var conduct = $("#conductBox").val();
 		$.ajax({
-			url : "/ewsd/score/new",
+			url : "/project/score/new",
 			type : "POST",
 			data : {
 				math : math,

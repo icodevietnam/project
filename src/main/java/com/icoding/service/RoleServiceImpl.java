@@ -24,13 +24,13 @@ public class RoleServiceImpl extends GenericServiceImpl<Role, Integer>
 	}
 
 	@Override
-	public List<Role> getAllNotStudent() {
-		return roleDao.getAllNotStudent();
+	public List<Role> getAllNotUser() {
+		return roleDao.getAllNotUser();
 	}
 
 	@Override
-	public Role getRoleStudent() {
-		return roleDao.getRoleStudent();
+	public Role getRoleUser() {
+		return roleDao.getRoleUser();
 	}
 
 }

@@ -4,7 +4,7 @@ $(function() {
 
 /*
  * function showImage(id){ var link =""; $.ajax({ url :
- * "/ewsd/fileAttached/get", type : "GET", data : { itemId : id }, async :false,
+ * "/project/fileAttached/get", type : "GET", data : { itemId : id }, async :false,
  * cache : false, dataType : "JSON", success : function(response) { link = "<img
  * class='thumbnail' src='/resources/default/images/"+ response.name+ "'/>" }
  * }); return link; }
@@ -14,7 +14,7 @@ function displayTable() {
 	var dataDepartments = [];
 	$
 			.ajax({
-				url : "/ewsd/report/getAll",
+				url : "/project/report/getAll",
 				type : "GET",
 				dataType : "JSON",
 				async : false,
@@ -74,7 +74,7 @@ function displayTable() {
 
 function setApprove(id){
 	$.ajax({
-		url : "/ewsd/report/setApprove",
+		url : "/project/report/setApprove",
 		type : "POST",
 		data : {
 			reportId : id

@@ -35,9 +35,6 @@ public class Program {
 	@Column(name = "description")
 	private String description;
 
-	@ManyToOne
-	@JoinColumn(name = "faculty")
-	private Faculty faculty;
 
 	@ManyToOne
 	@JoinColumn(name = "ee")
@@ -86,14 +83,6 @@ public class Program {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Faculty getFaculty() {
-		return faculty;
-	}
-
-	public void setFaculty(Faculty faculty) {
-		this.faculty = faculty;
 	}
 
 	public User getEe() {

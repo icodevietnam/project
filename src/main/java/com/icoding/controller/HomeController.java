@@ -24,13 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.icoding.domain.Certificated;
-import com.icoding.domain.Faculty;
 import com.icoding.domain.Notification;
 import com.icoding.domain.Program;
 import com.icoding.domain.Report;
 import com.icoding.domain.User;
-import com.icoding.service.CertificateService;
-import com.icoding.service.FacultyService;
 import com.icoding.service.NotificationService;
 import com.icoding.service.ProgramService;
 import com.icoding.service.ReportService;
@@ -43,14 +40,7 @@ import com.icoding.service.UserService;
 @SessionAttributes("student")
 public class HomeController extends GenericController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
-
-	@Autowired
-	private FacultyService facultyService;
-
-	@Autowired
-	private CertificateService certificateService;
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	private ProgramService programService;
@@ -80,7 +70,7 @@ public class HomeController extends GenericController {
 		model.addAttribute("allTaskCount", reportService.getAll().size());
 		model.addAttribute("completedReportCount", getCompletedReport().size());
 		model.addAttribute("programNoEENoPL", listProgramError().size());
-		model.addAttribute("message","");
+		model.addAttribute("message", "");
 		return "home";
 	}
 
@@ -108,41 +98,35 @@ public class HomeController extends GenericController {
 
 	@RequestMapping(value = { "/home", "/member", "/" }, method = RequestMethod.GET)
 	public String displayHome(Locale locale, Model model) {
-		List<Faculty> listFaculties = listFaculties();
 		model.addAttribute("title", "Home");
-		model.addAttribute("listFaculties", listFaculties);
 		return "home/index";
 	}
 
 	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
 	public String displayRegisterPage(Locale locale, Model model) {
-		List<Faculty> listFaculties = listFaculties();
 		model.addAttribute("title", "Register");
-		model.addAttribute("listFaculties", listFaculties);
 		return "home/register";
 	}
 
 	@RequestMapping(value = { "/member/login" }, method = RequestMethod.POST)
 	public String loginStudent(ModelMap model, HttpServletRequest request,
-			@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password) {
+			@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
 		User student = userService.getUser(username);
 		HttpSession session = request.getSession();
 		if (student != null) {
 			if (encoder.matches(password, student.getPassword())) {
 				// session.setAttribute("student", student);
 				if (student.getRole().getName().equalsIgnoreCase("student")) {
-					session.setAttribute("message","");
+					session.setAttribute("message", "");
 					session.setAttribute("student", student);
 				} else {
-					session.setAttribute("student",null);
+					session.setAttribute("student", null);
 				}
 			} else {
-				session.setAttribute("student",null);
+				session.setAttribute("student", null);
 			}
-		}
-		else{
-			session.setAttribute("message","Login Fail");
+		} else {
+			session.setAttribute("message", "Login Fail");
 		}
 		return "redirect:/home";
 	}
@@ -161,18 +145,10 @@ public class HomeController extends GenericController {
 	}
 
 	@RequestMapping(value = { "/program/{facultyId}" }, method = RequestMethod.GET)
-	public String facultyPage(Model model, HttpServletRequest request,
-			@PathVariable String facultyId) {
-		List<Faculty> listFaculties = listFaculties();
+	public String facultyPage(Model model, HttpServletRequest request, @PathVariable String facultyId) {
 		model.addAttribute("title", "Program");
-		model.addAttribute("listFaculties", listFaculties);
 		List<Program> listAllPrograms = programService.getAll();
 		List<Program> listByFaculty = new ArrayList<Program>();
-		for (Program p : listAllPrograms) {
-			if (p.getFaculty().getId() == Integer.parseInt(facultyId)) {
-				listByFaculty.add(p);
-			}
-		}
 		// Get Program from Session User:
 		HttpSession session = request.getSession();
 		double average = 0;
@@ -181,8 +157,7 @@ public class HomeController extends GenericController {
 			if (student != null) {
 				Certificated score = student.getCertificated();
 				if (score != null) {
-					average = (score.getBiological() + score.getChemistry()
-							+ score.getEnglish() + score.getMath()
+					average = (score.getBiological() + score.getChemistry() + score.getEnglish() + score.getMath()
 							+ score.getPhysical() + score.getLiterity()) / 6;
 				}
 			}
@@ -194,20 +169,15 @@ public class HomeController extends GenericController {
 
 	@RequestMapping(value = { "/member/score" }, method = RequestMethod.GET)
 	public String scorePage(Model model) {
-		List<Faculty> listFaculties = listFaculties();
 		model.addAttribute("title", "Score");
-		model.addAttribute("listFaculties", listFaculties);
 		return "home/score";
 	}
 
 	@RequestMapping(value = { "/score/new" }, method = RequestMethod.POST)
 	public String insertScore(@RequestParam(value = "math") String math,
-			@RequestParam(value = "literity") String literity,
-			@RequestParam(value = "chemistry") String chemistry,
-			@RequestParam(value = "physical") String physical,
-			@RequestParam(value = "biological") String biological,
-			@RequestParam(value = "english") String english,
-			@RequestParam(value = "conduct") String conduct,
+			@RequestParam(value = "literity") String literity, @RequestParam(value = "chemistry") String chemistry,
+			@RequestParam(value = "physical") String physical, @RequestParam(value = "biological") String biological,
+			@RequestParam(value = "english") String english, @RequestParam(value = "conduct") String conduct,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User student = (User) session.getAttribute("student");
@@ -231,14 +201,9 @@ public class HomeController extends GenericController {
 		return "home/score";
 	}
 
-	private List<Faculty> listFaculties() {
-		return facultyService.getAll();
-	}
-
 	@RequestMapping(value = { "/report/joinProgram" }, method = RequestMethod.POST)
 	@ResponseBody
-	public String joinProgram(@RequestParam(value = "stuId") String stuId,
-			@RequestParam(value = "code") String code) {
+	public String joinProgram(@RequestParam(value = "stuId") String stuId, @RequestParam(value = "code") String code) {
 		Integer studentId = Integer.parseInt(stuId);
 		User student = userService.get(studentId);
 		Program program = programService.getProgram(code);
@@ -255,12 +220,9 @@ public class HomeController extends GenericController {
 				reportService.add(report);
 
 				Notification notification = new Notification();
-				notification.setName("New Report Added: "
-						+ student.getFullName() + " join program "
-						+ program.getName());
-				notification.setContent("New Report: \n"
-						+ " Url: http://localhost/ewsd/report/"
-						+ report.getId());
+				notification
+						.setName("New Report Added: " + student.getFullName() + " join program " + program.getName());
+				notification.setContent("New Report: \n" + " Url: http://localhost/project/report/" + report.getId());
 				notification.setIsEERead(false);
 				notification.setIsDLTRead(false);
 				notification.setIsPLRead(false);
@@ -271,10 +233,6 @@ public class HomeController extends GenericController {
 		} else {
 			return "false";
 		}
-	}
-
-	private int countReportEachYear() {
-		return 0;
 	}
 
 }

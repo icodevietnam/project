@@ -165,7 +165,7 @@ public class StudentController extends GenericController {
 		user.setBirthDate(birthDate);
 		user.setAddress(address);
 		user.setEmail(email);
-		user.setRole(roleService.getRoleStudent());
+		user.setRole(roleService.getRoleUser());
 		user.setState(state);
 		if (gender.equalsIgnoreCase("true")) {
 			user.setGender(true);

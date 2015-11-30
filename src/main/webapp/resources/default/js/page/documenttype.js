@@ -40,7 +40,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/documentType/getAll",
+		url : "/project/documentType/getAll",
 		type : "GET",
 		dataType : "JSON",
 		success : function(response) {
@@ -82,7 +82,7 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/ewsd/documentType/get",
+		url : "/project/documentType/get",
 		type : "GET",
 		data : {
 			itemId : id
@@ -101,7 +101,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/documentType/delete",
+			url : "/project/documentType/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -120,7 +120,7 @@ function editedItem() {
 		var documentTypeName = $("#updateItemForm .documentTypeName").val();
 		var departmentId = $("#updateItemForm .departmentBox").val();
 		$.ajax({
-			url : "/ewsd/documentType/update",
+			url : "/project/documentType/update",
 			type : "POST",
 			data : {
 				documentTypeId : documentTypeId,
@@ -144,7 +144,7 @@ function insertItem() {
 		var documentTypeName = $("#documentTypeName").val();
 		var departmentId = $("#departmentBox").val();
 		$.ajax({
-			url : "/ewsd/documentType/new",
+			url : "/project/documentType/new",
 			type : "POST",
 			data : {
 				documentTypeName : documentTypeName,

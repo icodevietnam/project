@@ -6,7 +6,7 @@ $(function() {
 	var email = $("#customerEmail").val() ;
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/brief/searchCustomer",
+		url : "/project/brief/searchCustomer",
 		type : "GET",
 		dataType : "JSON",
 		data : {
@@ -53,7 +53,7 @@ $(function() {
 function displayBrief(cusId){
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/brief/searchBrief",
+		url : "/project/brief/searchBrief",
 		type : "GET",
 		dataType : "JSON",
 		data :{

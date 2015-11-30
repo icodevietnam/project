@@ -4,21 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.icoding.dao.FacultyDao;
+import com.icoding.dao.DistrictDao;
 import com.icoding.dao.GenericDao;
-import com.icoding.domain.Faculty;
+import com.icoding.domain.District;
 
 @Service
 @Transactional
-public class FacultyServiceImpl extends GenericServiceImpl<Faculty, Integer>
-		implements FacultyService {
+public class DistrictServiceImpl extends GenericServiceImpl<District, Integer>implements DistrictService {
 
 	@Autowired
-	private FacultyDao facultyDao;
+	private DistrictDao districtDao;
 
 	@Override
-	GenericDao<Faculty, Integer> getDao() {
-		return facultyDao;
+	GenericDao<District, Integer> getDao() {
+		return districtDao;
 	}
 
 }

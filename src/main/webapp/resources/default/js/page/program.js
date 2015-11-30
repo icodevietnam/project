@@ -66,7 +66,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/ewsd/program/getAll",
+		url : "/project/program/getAll",
 		type : "GET",
 		dataType : "JSON",
 		async : false,
@@ -132,7 +132,7 @@ function displayTable() {
 
 function editItem(str) {
 	$.ajax({
-		url : "/ewsd/program/get",
+		url : "/project/program/get",
 		type : "GET",
 		data : {
 			itemId : str
@@ -159,7 +159,7 @@ function editItem(str) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/ewsd/program/delete",
+			url : "/project/program/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -176,7 +176,7 @@ function editedItem() {
 	if ($("#updateItemForm").valid()) {
 		var formData = new FormData($("#updateItemForm")[0]);
 		$.ajax({
-			url : "/ewsd/program/update",
+			url : "/project/program/update",
 			type : "POST",
 			data : formData,
 			contentType : false,
@@ -200,7 +200,7 @@ function insertItem() {
 	if ($("#newItemForm").valid()) {
 		var formData = new FormData($("#newItemForm")[0]);
 		$.ajax({
-			url : "/ewsd/program/new",
+			url : "/project/program/new",
 			type : "POST",
 			data : formData,
 			contentType : false,

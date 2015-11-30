@@ -6,7 +6,7 @@ $(function(){
 			oldpassword:{
 				required:true,
 				remote:{
-					url:'/ewsd/user/checkPasswordExist',
+					url:'/project/user/checkPasswordExist',
 					type:'GET',
 					data:{
 						oldpassword:function(){

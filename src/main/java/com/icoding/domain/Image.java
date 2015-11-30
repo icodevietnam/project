@@ -16,8 +16,8 @@ import org.hibernate.annotations.FetchMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "faculty")
-public class Faculty {
+@Table(name = "image")
+public class Image {
 
 	@Id
 	@GeneratedValue
@@ -26,14 +26,17 @@ public class Faculty {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "path")
+	private String path;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty")
+	@Column(name = "ext")
+	private String ext;
+	
 	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
 	@Fetch(FetchMode.SELECT)
-	private List<Program> listPrograms;
-
+	private List<District> listDistricts;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,20 +53,20 @@ public class Faculty {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPath() {
+		return path;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
-	public List<Program> getListPrograms() {
-		return listPrograms;
+	public String getExt() {
+		return ext;
 	}
 
-	public void setListPrograms(List<Program> listPrograms) {
-		this.listPrograms = listPrograms;
+	public void setExt(String ext) {
+		this.ext = ext;
 	}
 
 }

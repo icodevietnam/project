@@ -3,7 +3,7 @@ $(function() {
 function joinProgram(stuId, code) {
 	$
 			.ajax({
-				url : "/ewsd/report/joinProgram",
+				url : "/project/report/joinProgram",
 				type : "POST",
 				data : {
 					stuId : stuId,

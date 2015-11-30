@@ -9,15 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.icoding.domain.User;
 
 @Repository
-public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements
-		UserDao {
+public class UserDaoImpl extends GenericDaoImpl<User, Integer>implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getUser(String username) {
 		List<User> userList = new ArrayList<User>();
-		Query query = currentSession().createQuery(
-				"from User u where u.username = :username");
+		Query query = currentSession().createQuery("from User u where u.username = :username");
 		query.setParameter("username", username);
 		userList = query.list();
 		if (userList.size() > 0)
@@ -30,8 +28,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements
 	public User getUser(String username, String password) {
 		List<User> userList = new ArrayList<User>();
 		Query query = currentSession()
-				.createQuery(
-						"from User u where u.username = :username and u.password = :password");
+				.createQuery("from User u where u.username = :username and u.password = :password");
 		query.setParameter("username", username);
 		query.setParameter("password", password);
 		userList = query.list();
@@ -67,18 +64,6 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements
 	}
 
 	@Override
-	public List<User> getEmployee() {
-		List<User> listAll = getAll();
-		List<User> userList = new ArrayList<User>();
-		for (User u : listAll) {
-			if (!u.getRole().getName().equalsIgnoreCase("student")) {
-				userList.add(u);
-			}
-		}
-		return userList;
-	}
-
-	@Override
 	public List<User> getStudent() {
 		List<User> listAll = getAll();
 		List<User> userList = new ArrayList<User>();
@@ -95,8 +80,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements
 		List<User> listStudent = getAll();
 		User getUser = null;
 		for (User u : listStudent) {
-			if (u.getUsername().equalsIgnoreCase(username)
-					&& u.getPassword().equalsIgnoreCase(password)) {
+			if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equalsIgnoreCase(password)) {
 				getUser = u;
 			}
 		}
@@ -115,13 +99,20 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements
 	@Override
 	public Boolean checkEmailExist(String email) {
 		List<User> userList = new ArrayList<User>();
-		Query query = currentSession().createQuery(
-				"from User u where u.email = :email");
+		Query query = currentSession().createQuery("from User u where u.email = :email");
 		query.setParameter("email", email);
 		userList = query.list();
 		if (userList.size() > 0)
 			return true;
 		return false;
+	}
+
+	@Override
+	public List<User> getEmployee() {
+		List<User> userList = new ArrayList<User>();
+		Query query = currentSession().createQuery("from User u");
+		userList = query.list();
+		return userList;
 	}
 
 }
