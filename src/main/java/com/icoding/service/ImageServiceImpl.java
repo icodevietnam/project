@@ -13,11 +13,11 @@ import com.icoding.domain.Image;
 public class ImageServiceImpl extends GenericServiceImpl<Image, Integer>implements ImageService {
 
 	@Autowired
-	private ImageDao districtDao;
+	private ImageDao imageDao;
 
 	@Override
 	GenericDao<Image, Integer> getDao() {
-		return districtDao;
+		return imageDao;
 	}
 
 }
