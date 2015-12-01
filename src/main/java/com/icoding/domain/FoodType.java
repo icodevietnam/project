@@ -18,27 +18,32 @@ import org.hibernate.annotations.FetchMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "district")
-public class District {
-
+@Table(name = "foodtype")
+public class FoodType {
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
-
+	
 	@Column(name = "name")
 	private String name;
-
+	
 	@Column(name = "description")
 	private String description;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "image")
-	private Image image;
+	@JoinColumn(name = "foodType")
+	private FoodType foodType;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "district")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "foodType")
 	@Fetch(FetchMode.SELECT)
-	private List<Store> listStores;
+	private List<FoodType> listFoodTypes;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "foodType")
+	@Fetch(FetchMode.SELECT)
+	private List<Food> listFoods;
 
 	public Integer getId() {
 		return id;
@@ -64,20 +69,28 @@ public class District {
 		this.description = description;
 	}
 
-	public Image getImage() {
-		return image;
+	public FoodType getFoodType() {
+		return foodType;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public void setFoodType(FoodType foodType) {
+		this.foodType = foodType;
 	}
 
-	public List<Store> getListStores() {
-		return listStores;
+	public List<FoodType> getListFoodTypes() {
+		return listFoodTypes;
 	}
 
-	public void setListStores(List<Store> listStores) {
-		this.listStores = listStores;
+	public void setListFoodTypes(List<FoodType> listFoodTypes) {
+		this.listFoodTypes = listFoodTypes;
+	}
+
+	public List<Food> getListFoods() {
+		return listFoods;
+	}
+
+	public void setListFoods(List<Food> listFoods) {
+		this.listFoods = listFoods;
 	}
 	
 }

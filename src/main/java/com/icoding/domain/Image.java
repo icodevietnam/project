@@ -31,15 +31,31 @@ public class Image {
 
 	@Column(name = "ext")
 	private String ext;
-	
-	@Column(name="absolutely_path")
+
+	@Column(name = "absolutely_path")
 	private String absolutelyPath;
-	
+
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
 	@Fetch(FetchMode.SELECT)
 	private List<District> listDistricts;
+
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
+	@Fetch(FetchMode.SELECT)
+	private List<Banner> listBanners;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
+	@Fetch(FetchMode.SELECT)
+	private List<Food> listFoods;
 	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
+	@Fetch(FetchMode.SELECT)
+	private List<Store> listStores;
+
 	public Integer getId() {
 		return id;
 	}
@@ -87,5 +103,30 @@ public class Image {
 	public void setListDistricts(List<District> listDistricts) {
 		this.listDistricts = listDistricts;
 	}
+
+	public List<Banner> getListBanners() {
+		return listBanners;
+	}
+
+	public void setListBanners(List<Banner> listBanners) {
+		this.listBanners = listBanners;
+	}
+
+	public List<Food> getListFoods() {
+		return listFoods;
+	}
+
+	public void setListFoods(List<Food> listFoods) {
+		this.listFoods = listFoods;
+	}
+
+	public List<Store> getListStores() {
+		return listStores;
+	}
+
+	public void setListStores(List<Store> listStores) {
+		this.listStores = listStores;
+	}
+	
 
 }

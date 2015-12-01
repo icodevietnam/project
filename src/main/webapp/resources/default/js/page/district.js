@@ -1,5 +1,6 @@
 $(function() {
 	displayTable();
+	$('.imageDemo').attr('src',"/project/resources/default/images/no-image.jpg");
 	$("#newItemForm").validate({
 		rules : {
 			name:{
@@ -37,6 +38,14 @@ $(function() {
 			}
 		}
 	});
+	
+	  $("#image").change(function(){
+		  readUrl(this);
+	  });
+	  
+	  $(".fileUpload").change(function(){
+		  readUrl(this);
+	  });
 });
 
 /*function showImage(id){
@@ -71,7 +80,7 @@ function displayTable() {
 				i++;
 				dataDepartments.push([
 						i,
-						value.name,value.description,
+						value.name,value.description,"<img width='200px' alt='"+value.image.name+"' src='"+value.image.absolutelyPath+"' />",
 						"<button class='btn btn-sm btn-primary' onclick='editItem("
 								+ value.id + ")' >Edit</button>",
 						"<button class='btn btn-sm btn-danger' onclick='deleteItem("
@@ -93,6 +102,9 @@ function displayTable() {
 				}, {
 					"sTitle" : "Description"
 				}, {
+					"sTitle" : "Name"
+				},
+				{
 					"sTitle" : "Sửa"
 				}, {
 					"sTitle" : "Xoá"
@@ -114,6 +126,7 @@ function editItem(id) {
 			$("#updateItemForm .districtId").val(response.id);
 			$("#updateItemForm .districtName").val(response.name);
 			$("#updateItemForm .districtDescription").val(response.description);
+			$('.imageDemo').attr('src', response.image.absolutelyPath);
 			$("#updateItem").modal("show");
 		}
 	});
@@ -152,6 +165,9 @@ function editedItem() {
 				$("#updateItemForm .districtName").val("");
 				$("#updateItemForm .districtDescription").val("");
 				$("#updateItem").modal("hide");
+				var $el = $('.imageDemo');
+				$el.wrap('<form>').closest('form').get(0).reset();
+		        $el.unwrap();
 			}
 		});
 	}
@@ -174,7 +190,20 @@ function insertItem() {
 				$("#newItem").modal("hide");
 				$("#districtName").val(" ");
 				$("#districtDescription").val(" ");
+				$('.imageDemo').attr('src',"/project/resources/default/images/no-image.jpg");
 			}
 		});
 	}
+}
+
+function readUrl(input){
+	 if (input.files && input.files[0]) {
+         var reader = new FileReader();
+         
+         reader.onload = function (e) {
+             $('.imageDemo').attr('src', e.target.result);
+         }
+         
+         reader.readAsDataURL(input.files[0]);
+     }
 }

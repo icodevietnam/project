@@ -53,6 +53,7 @@
 								<label for="name" class="col-sm-2 control-label">Image</label>
 								<div class="col-sm-10">
 									<input type="file" class="form-control" id="image" name="image">
+									<img width="200px" class="imageDemo" src="#" />
 								</div>
 							</div>
 						</div>
@@ -87,20 +88,21 @@
 								<label for="name" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="districtName form-control"
-										class="districtName" name="name">
+										 name="name">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label">Description</label>
 								<div class="col-sm-10">
 									<input type="text" class="districtDescription form-control"
-										class="districtDescription" name="description">
+										 name="description">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label">Image</label>
 								<div class="col-sm-10">
-									<input type="file" class="form-control" id="image" name="image">
+									<input type="file" class="fileUpload form-control" id="image" name="image">
+									<img width="200px" class="imageDemo" src="#" />
 								</div>
 							</div>
 						</div>

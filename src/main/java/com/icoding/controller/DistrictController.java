@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.icoding.domain.District;
+import com.icoding.domain.Image;
 import com.icoding.service.DistrictService;
 import com.icoding.service.ImageService;
 
@@ -27,7 +28,8 @@ public class DistrictController {
 	@Autowired
 	private ImageService imageService;
 
-	@RequestMapping(value = { "/admin/district", "/admin/district/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = { "/admin/district",
+			"/admin/district/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public String displayPage(Model model) {
 		model.addAttribute("pageName", "Manage District");
 		model.addAttribute("title", "Manage District");
@@ -47,9 +49,12 @@ public class DistrictController {
 	public String deleteDistrict(@RequestParam(value = "itemId") String itemId) {
 		Integer id = Integer.parseInt(itemId);
 		District district = districtService.get(id);
+		Image image = district.getImage();
+		district.setImage(null);
 		try {
 			// imageService.remove();
 			districtService.remove(district);
+			imageService.remove(image);
 			return "true";
 		} catch (Exception e) {
 			return "false";
@@ -58,16 +63,14 @@ public class DistrictController {
 
 	@RequestMapping(value = "/district/new", method = RequestMethod.POST)
 	@ResponseBody
-	public String adddistrict(HttpServletRequest request,
-			@RequestParam(value = "name") String name,
+	public String adddistrict(HttpServletRequest request, @RequestParam(value = "name") String name,
 			@RequestParam(value = "description") String description,
 			@RequestParam(value = "image") MultipartFile image) {
 		District district = new District();
 		district.setName(name);
 		district.setDescription(description);
 		ImageProcess imageProcess = new ImageProcess();
-		district.setImage(imageProcess
-				.uploadImage(image, request, imageService));
+		district.setImage(imageProcess.uploadImage(image, request, imageService));
 		try {
 			districtService.saveOrUpdate(district);
 			return "true";
@@ -78,13 +81,13 @@ public class DistrictController {
 
 	@RequestMapping(value = "/district/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updatedistrict(
-			@RequestParam(value = "districtId") String districtId,
-			@RequestParam(value = "name") String name,
-			@RequestParam(value = "description") String description) {
+	public String updatedistrict(HttpServletRequest request,@RequestParam(value = "districtId") String districtId,
+			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description, @RequestParam(value="image") MultipartFile image) {
 		District district = districtService.get(Integer.parseInt(districtId));
 		district.setName(name);
 		district.setDescription(description);
+		ImageProcess imageProcess = new ImageProcess();
+		district.setImage(imageProcess.uploadImage(image, request, imageService));
 		try {
 			districtService.saveOrUpdate(district);
 			return "true";
