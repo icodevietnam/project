@@ -22,9 +22,12 @@
     <script src="<c:url value='/resources/default/js/jquery-2.1.1.js'/>"></script>
     <script src="<c:url value='/resources/default/js/bootstrap-select.js'/>"></script>
     <script src="<c:url value='/resources/default/js/bootstrap-datepicker.js'/>"></script>
+    <script src="<c:url value='/resources/default/js/tinymce.min.js'/>"></script>
     <script src="<c:url value='/resources/default/js/jquery.dataTables.js'/>"></script>
     <script src="<c:url value='/resources/default/js/dataTables.bootstrap.js'/>"></script>
     <script src="<c:url value='/resources/default/js/jquery.validate.js'/>"></script>
+    <!-- Javascript Configuration -->
+    <script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body>
     <div id="wrapper">
