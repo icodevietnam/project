@@ -32,6 +32,9 @@ public class Image {
 	@Column(name = "ext")
 	private String ext;
 	
+	@Column(name="absolutely_path")
+	private String absolutelyPath;
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "image")
 	@Fetch(FetchMode.SELECT)
@@ -67,6 +70,22 @@ public class Image {
 
 	public void setExt(String ext) {
 		this.ext = ext;
+	}
+
+	public String getAbsolutelyPath() {
+		return absolutelyPath;
+	}
+
+	public void setAbsolutelyPath(String absolutelyPath) {
+		this.absolutelyPath = absolutelyPath;
+	}
+
+	public List<District> getListDistricts() {
+		return listDistricts;
+	}
+
+	public void setListDistricts(List<District> listDistricts) {
+		this.listDistricts = listDistricts;
 	}
 
 }

@@ -27,8 +27,7 @@ public class DistrictController {
 	@Autowired
 	private ImageService imageService;
 
-	@RequestMapping(value = { "/admin/district",
-			"/admin/district/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = { "/admin/district", "/admin/district/list" }, method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public String displayPage(Model model) {
 		model.addAttribute("pageName", "Manage District");
 		model.addAttribute("title", "Manage District");
@@ -49,6 +48,7 @@ public class DistrictController {
 		Integer id = Integer.parseInt(itemId);
 		District district = districtService.get(id);
 		try {
+			// imageService.remove();
 			districtService.remove(district);
 			return "true";
 		} catch (Exception e) {
@@ -58,14 +58,16 @@ public class DistrictController {
 
 	@RequestMapping(value = "/district/new", method = RequestMethod.POST)
 	@ResponseBody
-	public String adddistrict(HttpServletRequest request, @RequestParam(value = "name") String name,
+	public String adddistrict(HttpServletRequest request,
+			@RequestParam(value = "name") String name,
 			@RequestParam(value = "description") String description,
 			@RequestParam(value = "image") MultipartFile image) {
 		District district = new District();
 		district.setName(name);
 		district.setDescription(description);
 		ImageProcess imageProcess = new ImageProcess();
-		district.setImage(imageProcess.uploadImage(image, request, imageService));
+		district.setImage(imageProcess
+				.uploadImage(image, request, imageService));
 		try {
 			districtService.saveOrUpdate(district);
 			return "true";
@@ -76,8 +78,10 @@ public class DistrictController {
 
 	@RequestMapping(value = "/district/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updatedistrict(@RequestParam(value = "districtId") String districtId,
-			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description) {
+	public String updatedistrict(
+			@RequestParam(value = "districtId") String districtId,
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "description") String description) {
 		District district = districtService.get(Integer.parseInt(districtId));
 		district.setName(name);
 		district.setDescription(description);
