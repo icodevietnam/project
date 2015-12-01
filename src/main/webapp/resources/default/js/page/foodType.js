@@ -1,4 +1,5 @@
 $(function() {
+	$('.combobox').selectpicker();
 	displayTable();
 	$('.imageDemo').attr('src',"/project/resources/default/images/no-image.jpg");
 	$("#newItemForm").validate({
@@ -69,7 +70,7 @@ $(function() {
 function displayTable() {
 	var dataDepartments = [];
 	$.ajax({
-		url : "/project/district/getAll",
+		url : "/project/foodType/getAll",
 		type : "GET",
 		dataType : "JSON",
 		async :false,
@@ -78,9 +79,15 @@ function displayTable() {
 			var i = 0;
 			$.each(response, function(key, value) {
 				i++;
+				var parent;
+				if(!value.foodType){
+					parent = "None";
+				}else{
+					parent =value.foodType.name ;
+				}
 				dataDepartments.push([
 						i,
-						value.name,value.description,"<img width='200px' alt='"+value.image.name+"' src='"+value.image.absolutelyPath+"' />",
+						value.name,value.description,parent,
 						"<button class='btn btn-sm btn-primary' onclick='editItem("
 								+ value.id + ")' >Edit</button>",
 						"<button class='btn btn-sm btn-danger' onclick='deleteItem("
@@ -102,7 +109,7 @@ function displayTable() {
 				}, {
 					"sTitle" : "Description"
 				}, {
-					"sTitle" : "Image"
+					"sTitle" : "Parent"
 				},
 				{
 					"sTitle" : "Sửa"
@@ -116,17 +123,21 @@ function displayTable() {
 
 function editItem(id) {
 	$.ajax({
-		url : "/project/district/get",
+		url : "/project/foodType/get",
 		type : "GET",
 		data : {
 			itemId : id
 		},
 		dataType : "JSON",
 		success : function(response) {
-			$("#updateItemForm .districtId").val(response.id);
-			$("#updateItemForm .districtName").val(response.name);
-			$("#updateItemForm .districtDescription").val(response.description);
-			$('.imageDemo').attr('src', response.image.absolutelyPath);
+			$("#updateItemForm .foodTypeId").val(response.id);
+			$("#updateItemForm .foodTypeName").val(response.name);
+			$("#updateItemForm .foodTypeDescription").val(response.description);
+			if(!response.foodType){
+				$("#updateItemForm .foodTypeBox").selectpicker('val',"0");
+			}else{
+				$("#updateItemForm .foodTypeBox").selectpicker('val',""+response.foodType.id +"");
+			}
 			$("#updateItem").modal("show");
 		}
 	});
@@ -135,7 +146,7 @@ function editItem(id) {
 function deleteItem(id) {
 	if (confirm("Are you sure you want to proceed?") == true) {
 		$.ajax({
-			url : "/project/district/delete",
+			url : "/project/foodType/delete",
 			type : "POST",
 			data : {
 				itemId : id
@@ -152,7 +163,7 @@ function editedItem() {
 	if($("#updateItemForm").valid()){
 		var formData = new FormData($("#updateItemForm")[0]);
 		$.ajax({
-			url : "/project/district/update",
+			url : "/project/foodType/update",
 			type : "POST",
 			data :formData ,
 			contentType:false,
@@ -162,12 +173,10 @@ function editedItem() {
 			},
 			complete:function(){
 				displayTable();
-				$("#updateItemForm .districtName").val("");
-				$("#updateItemForm .districtDescription").val("");
+				$("#updateItemForm .foodTypeName").val("");
+				$("#updateItemForm .foodTypeDescription").val("");
+				$("#updateItemForm .foodTypeBox").selectpicker('val',"0");
 				$("#updateItem").modal("hide");
-				var $el = $('.imageDemo');
-				$el.wrap('<form>').closest('form').get(0).reset();
-		        $el.unwrap();
 			}
 		});
 	}
@@ -177,7 +186,7 @@ function insertItem() {
 	if($("#newItemForm").valid()){
 		var formData = new FormData($("#newItemForm")[0]);
 		$.ajax({
-			url : "/project/district/new",
+			url : "/project/foodType/new",
 			type : "POST",
 			data : formData,
 			contentType:false,
@@ -188,8 +197,8 @@ function insertItem() {
 			complete:function(){
 				displayTable();
 				$("#newItem").modal("hide");
-				$("#districtName").val(" ");
-				$("#districtDescription").val(" ");
+				$("#foodTypeName").val(" ");
+				$("#foodTypeDescription").val(" ");
 				$('.imageDemo').attr('src',"/project/resources/default/images/no-image.jpg");
 			}
 		});

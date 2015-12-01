@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.icoding.domain.Certificated;
-import com.icoding.domain.Notification;
 import com.icoding.domain.Program;
 import com.icoding.domain.Report;
 import com.icoding.domain.User;
-import com.icoding.service.NotificationService;
 import com.icoding.service.ProgramService;
 import com.icoding.service.ReportService;
 import com.icoding.service.UserService;
@@ -54,8 +52,6 @@ public class HomeController extends GenericController {
 	@Autowired
 	private ReportService reportService;
 
-	@Autowired
-	private NotificationService notificationService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -218,16 +214,6 @@ public class HomeController extends GenericController {
 				report.setIsApproved(false);
 				report.setIsOverdue(false);
 				reportService.add(report);
-
-				Notification notification = new Notification();
-				notification
-						.setName("New Report Added: " + student.getFullName() + " join program " + program.getName());
-				notification.setContent("New Report: \n" + " Url: http://localhost/project/report/" + report.getId());
-				notification.setIsEERead(false);
-				notification.setIsDLTRead(false);
-				notification.setIsPLRead(false);
-				notification.setIsPVCRead(false);
-				notificationService.add(notification);
 				return "true";
 			}
 		} else {

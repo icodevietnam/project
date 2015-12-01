@@ -47,7 +47,7 @@
 				class="nav-label">Manage Features</span> <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level collapse">
 					<li><a href="<c:url value='/admin/district/list'/>">Manage District</a></li>
-					<li><a href="<c:url value='/admin/program/list'/>">Manage Food Type</a></li>
+					<li><a href="<c:url value='/admin/foodType/list'/>">Manage Food Type</a></li>
 				</ul>
 			</li>
 			<li class="suply"><a href="index.html"><i class="fa fa-th-large"></i> <span
