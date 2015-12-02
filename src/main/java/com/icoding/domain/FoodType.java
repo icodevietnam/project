@@ -31,6 +31,9 @@ public class FoodType {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "")
+	private String type;
+	
 	@ManyToOne
 	@JoinColumn(name = "foodType")
 	private FoodType foodType;
@@ -92,5 +95,14 @@ public class FoodType {
 	public void setListFoods(List<Food> listFoods) {
 		this.listFoods = listFoods;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 }

@@ -87,7 +87,7 @@ function displayTable() {
 				}
 				dataDepartments.push([
 						i,
-						value.name,value.description,parent,
+						value.name,value.description,parent,value.type == '0' ? 'Store Type' :'Food Type',
 						"<button class='btn btn-sm btn-primary' onclick='editItem("
 								+ value.id + ")' >Edit</button>",
 						"<button class='btn btn-sm btn-danger' onclick='deleteItem("
@@ -110,6 +110,8 @@ function displayTable() {
 					"sTitle" : "Description"
 				}, {
 					"sTitle" : "Parent"
+				}, {
+					"sTitle" : "Type"
 				},
 				{
 					"sTitle" : "Sửa"
@@ -160,7 +162,9 @@ function deleteItem(id) {
 }
 
 function editedItem() {
-	if($("#updateItemForm").valid()){
+	var currentId = $("#updateItemForm .foodTypeId").val();
+	var parentId = $("#updateItemForm .foodTypeBox").val();
+	if($("#updateItemForm").valid() && (currentId != parentId)){
 		var formData = new FormData($("#updateItemForm")[0]);
 		$.ajax({
 			url : "/project/foodType/update",
@@ -179,6 +183,8 @@ function editedItem() {
 				$("#updateItem").modal("hide");
 			}
 		});
+	}else {
+		alert("Can't set the food type by itself, please choose the another food type !!!");
 	}
 }
 

@@ -29,6 +29,10 @@ public class Food {
 	@ManyToOne
 	@JoinColumn(name = "image")
 	private Image image;
+	
+	@ManyToOne
+	@JoinColumn(name = "store")
+	private Store store;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +72,14 @@ public class Food {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 	
 }
