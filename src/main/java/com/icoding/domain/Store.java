@@ -1,3 +1,4 @@
+
 package com.icoding.domain;
 
 import java.util.List;
@@ -45,8 +46,9 @@ public class Store {
 	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "store_type")
-	private String storeType;
+	@ManyToOne
+	@JoinColumn(name = "storeType")
+	private FoodType storeType;
 
 	@ManyToOne
 	@JoinColumn(name = "image")
@@ -124,13 +126,21 @@ public class Store {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	public String getStoreType() {
+	
+	public FoodType getStoreType() {
 		return storeType;
 	}
 
-	public void setStoreType(String storeType) {
+	public void setStoreType(FoodType storeType) {
 		this.storeType = storeType;
+	}
+
+	public List<Food> getListFoods() {
+		return listFoods;
+	}
+
+	public void setListFoods(List<Food> listFoods) {
+		this.listFoods = listFoods;
 	}
 
 	public District getDistrict() {

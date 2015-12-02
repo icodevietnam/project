@@ -27,7 +27,15 @@
     <script src="<c:url value='/resources/default/js/dataTables.bootstrap.js'/>"></script>
     <script src="<c:url value='/resources/default/js/jquery.validate.js'/>"></script>
     <!-- Javascript Configuration -->
-    <script>tinymce.init({ selector:'textarea' });</script>
+    <script>tinymce.init({
+    	selector:'textarea',
+    	  setup: function (editor) {
+    	        editor.on('change', function () {
+    	            editor.save();
+    	        });
+    	  }
+    });
+    </script>
 </head>
 <body>
     <div id="wrapper">

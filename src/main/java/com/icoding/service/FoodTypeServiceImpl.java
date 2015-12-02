@@ -27,4 +27,16 @@ public class FoodTypeServiceImpl extends GenericServiceImpl<FoodType, Integer>im
 		return foodTypeDao.listParent();
 	}
 
+	@Override
+	public List<FoodType> listStoreType() {
+		return foodTypeDao.listStoreType();
+	}
+
+	@Override
+	public List<FoodType> listFoodType() {
+		return foodTypeDao.listFoodType();
+	}
+	
+	
+
 }

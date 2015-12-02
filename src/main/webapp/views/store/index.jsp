@@ -50,23 +50,62 @@
 								</div>
 							</div>
 							<div class="form-group">
-							<label for="role" class="col-sm-2 control-label">Food Type</label>
-							<div class="col-sm-10">
-								<select id="storeBox" name="storeBox" class="form-control combobox" data-style="btn-white">
-									<option value="0">No Parent</option>
-									<c:forEach var="store" items="${listParent}">
-										<option value="${store.id}">${store.name}</option>
-									</c:forEach>
-								</select>
+								<label for="name" class="col-sm-2 control-label">Address</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="storeAddress" name="address">
+								</div>
 							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">Open Hour</label>
+								<div class="col-sm-10">
+									<select id="openHourBox" name="openHourBox" class="form-control combobox" data-style="btn-white">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">Close Hour</label>
+								<div class="col-sm-10">
+									<select id="closeHourBox" name="closeHourBox" class="form-control combobox" data-style="btn-white">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Price Limit</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" id="storePriceLimit" name="priceLimit">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Phone</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" id="storePhone" name="phone">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">District</label>
+								<div class="col-sm-10">
+									<select name="districtBox" class="districtBox form-control combobox" data-style="btn-white">
+										<c:forEach var="district" items="${listDistricts}">
+											<option value="${district.id}">${district.name}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="role" class="col-sm-2 control-label">Store Type</label>
 								<div class="col-sm-10">
-									<select id="storeTypeBox" name="storeTypeBox" class="storeTypeBox form-control combobox" data-style="btn-white">
-										<option value="0">Store Type</option>
-										<option value="1">Food Type</option>
+									<select name="storeTypeBox" class="storeTypeBox form-control combobox" data-style="btn-white">
+										<c:forEach var="storeType" items="${listStoreTypes}">
+											<option value="${storeType.id}">${storeType.name}</option>
+										</c:forEach>
 									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Image</label>
+								<div class="col-sm-10">
+									<input type="file" class="form-control" id="image" name="image">
+									<img width="200px" class="imageDemo" src="#" />
 								</div>
 							</div>
 						</div>
@@ -100,24 +139,54 @@
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="storeName form-control"
-										 name="name">
+									<input type="text" class="storeName form-control" id="storeName" name="name">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label">Description</label>
 								<div class="col-sm-10">
-									<input type="text" class="storeDescription form-control"
-										 name="description">
+									<textarea class="storeDescription form-control" id="storeDescription"
+										name="description"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="role" class="col-sm-2 control-label">Food Type</label>
+								<label for="name" class="col-sm-2 control-label">Address</label>
 								<div class="col-sm-10">
-									<select name="storeBox" class="storeBox form-control combobox" data-style="btn-white">
-										<option value="0">No Parent</option>
-										<c:forEach var="store" items="${listParent}">
-											<option value="${store.id}">${store.name}</option>
+									<input type="text" class="storeAddress form-control" id="storeAddress" name="address">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">Open Hour</label>
+								<div class="col-sm-10">
+									<select name="openHourBox" class="openHourBox form-control combobox" data-style="btn-white">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">Close Hour</label>
+								<div class="col-sm-10">
+									<select name="closeHourBox" class="closeHourBox form-control combobox" data-style="btn-white">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Price Limit</label>
+								<div class="col-sm-10">
+									<input type="number" class="storePriceLimit form-control"  name="priceLimit">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Phone</label>
+								<div class="col-sm-10">
+									<input type="number" class="storePhone form-control" id="storePhone" name="phone">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="role" class="col-sm-2 control-label">District</label>
+								<div class="col-sm-10">
+									<select name="districtBox" class="districtBox form-control combobox" data-style="btn-white">
+										<c:forEach var="district" items="${listDistricts}">
+											<option value="${district.id}">${district.name}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -126,9 +195,17 @@
 								<label for="role" class="col-sm-2 control-label">Store Type</label>
 								<div class="col-sm-10">
 									<select name="storeTypeBox" class="storeTypeBox form-control combobox" data-style="btn-white">
-										<option value="0">Store Type</option>
-										<option value="1">Food Type</option>
+										<c:forEach var="storeType" items="${listStoreTypes}">
+											<option value="${storeType.id}">${storeType.name}</option>
+										</c:forEach>
 									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Image</label>
+								<div class="col-sm-10">
+									<input type="file" class="fileUpload form-control" name="image">
+									<img width="200px" class="imageDemo" src="#" />
 								</div>
 							</div>
 						</div>

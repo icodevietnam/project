@@ -31,7 +31,7 @@ public class FoodType {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "")
+	@Column(name = "type")
 	private String type;
 	
 	@ManyToOne
@@ -47,6 +47,11 @@ public class FoodType {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "foodType")
 	@Fetch(FetchMode.SELECT)
 	private List<Food> listFoods;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "storeType")
+	@Fetch(FetchMode.SELECT)
+	private List<Store> listStores;
 
 	public Integer getId() {
 		return id;

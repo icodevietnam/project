@@ -19,4 +19,19 @@ public class FoodTypeDaoImpl extends GenericDaoImpl<FoodType, Integer>implements
 		return foodTypeList;
 	}
 
+	@Override
+	public List<FoodType> listStoreType() {
+		List<FoodType> foodTypeList = new ArrayList<FoodType>();
+		Query query = currentSession().createQuery("from FoodType f where f.type = '0' ");
+		foodTypeList = query.list();
+		return foodTypeList;
+	}
+	
+	public List<FoodType> listFoodType() {
+		List<FoodType> foodTypeList = new ArrayList<FoodType>();
+		Query query = currentSession().createQuery("from FoodType f where f.type = '1' ");
+		foodTypeList = query.list();
+		return foodTypeList;
+	}
+
 }
