@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.icoding.domain.Food;
 import com.icoding.domain.Image;
-import com.icoding.domain.Store;
 import com.icoding.service.FoodService;
 import com.icoding.service.FoodTypeService;
 import com.icoding.service.ImageService;
@@ -100,15 +99,14 @@ public class FoodController {
 		Food food = foodService.get(Integer.parseInt(itemId));
 		return food;
 	}
-	
+
 	@RequestMapping(value = "/food/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updatedistrict(HttpServletRequest request,@RequestParam(value = "foodId") String foodId,
-			 @RequestParam(value = "name") String name,
-				@RequestParam(value = "description") String description, @RequestParam(value = "storeBox") String storeBox,
-				@RequestParam(value = "foodTypeBox") String foodTypeBox,
-				@RequestParam(value = "image") MultipartFile image) {
-		Food food= foodService.get(Integer.parseInt(foodId));
+	public String updatedistrict(HttpServletRequest request, @RequestParam(value = "foodId") String foodId,
+			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description,
+			@RequestParam(value = "storeBox") String storeBox, @RequestParam(value = "foodTypeBox") String foodTypeBox,
+			@RequestParam(value = "image") MultipartFile image) {
+		Food food = foodService.get(Integer.parseInt(foodId));
 		food.setName(name);
 		food.setDescription(description);
 		food.setStore(storeService.get(Integer.parseInt(storeBox)));
