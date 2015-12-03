@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.icoding.domain.Certificated;
 import com.icoding.domain.District;
@@ -31,8 +32,11 @@ import com.icoding.domain.Store;
 import com.icoding.domain.User;
 import com.icoding.service.DistrictService;
 import com.icoding.service.FoodService;
+import com.icoding.service.FoodTypeService;
+import com.icoding.service.ImageService;
 import com.icoding.service.ProgramService;
 import com.icoding.service.ReportService;
+import com.icoding.service.RoleService;
 import com.icoding.service.StoreService;
 import com.icoding.service.UserService;
 
@@ -65,6 +69,9 @@ public class HomeController extends GenericController {
 
 	@Autowired
 	private StoreService storeService;
+
+	@Autowired
+	private RoleService roleService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -227,19 +234,102 @@ public class HomeController extends GenericController {
 		model.addAttribute("listStores", listByDistrict);
 		return "home/district";
 	}
-	
+
 	@RequestMapping(value = { "/food/{id}" })
 	public String loadFood(Model model, @PathVariable(value = "id") String id) {
 		Food food = foodService.get(Integer.parseInt(id));
 		model.addAttribute("food", food);
 		return "home/food";
 	}
-	
+
 	@RequestMapping(value = { "/store/{id}" })
 	public String loadStore(Model model, @PathVariable(value = "id") String id) {
 		Store store = storeService.get(Integer.parseInt(id));
 		model.addAttribute("store", store);
 		model.addAttribute("listFoods", store.getListFoods());
 		return "home/store";
+	}
+
+	@RequestMapping(value = { "/search" })
+	public String searchInHomePage(Model model, @RequestParam(value = "keyword") String keyword) {
+		List<Food> listFoods = foodService.searchFood(keyword);
+		List<Store> listStores = storeService.searchStore(keyword);
+		model.addAttribute("listFoods", listFoods);
+		model.addAttribute("listStores", listStores);
+		model.addAttribute("keyword", keyword);
+		return "home/search";
+	}
+
+	@RequestMapping(value = "/userHome/new", method = RequestMethod.POST)
+	@ResponseBody
+	public String addUserHome(@RequestParam(value = "password") String password,
+			@RequestParam(value = "userName") String userName, @RequestParam(value = "fullname") String fullname,
+			@RequestParam(value = "birthDate") String birthDate, @RequestParam(value = "email") String email,
+			@RequestParam(value = "address") String address, @RequestParam(value = "phone") String phone,
+			@RequestParam(value = "state") String state, @RequestParam(value = "gender") String gender) {
+		User user = new User();
+		user.setUsername(userName);
+		user.setPassword(encoder.encode(password));
+		user.setFullName(fullname);
+		user.setBirthDate(birthDate);
+		user.setAddress(address);
+		user.setEmail(email);
+		user.setRole(roleService.getRoleUser());
+		user.setState(state);
+		if (gender.equalsIgnoreCase("true")) {
+			user.setGender(true);
+		}
+		user.setGender(false);
+		user.setPhone(phone);
+		try {
+			userService.saveOrUpdate(user);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
+	}
+
+	@Autowired
+	private FoodTypeService foodTypeService;
+
+	@RequestMapping(value = "/addStorePage", method = RequestMethod.GET)
+	public String addUserHome(Model model) {
+		model.addAttribute("listDistricts", districtService.getAll());
+		model.addAttribute("listStoreTypes", foodTypeService.listStoreType());
+		return "home/addstore";
+	}
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@RequestMapping(value = "/storePage/new", method = RequestMethod.POST)
+	@ResponseBody
+	public String addfoodType(HttpServletRequest request, @RequestParam(value = "name") String name,
+			@RequestParam(value = "description") String description, @RequestParam(value = "address") String address,
+			@RequestParam(value = "openHourBox") String openHourBox,
+			@RequestParam(value = "closeHourBox") String closeHourBox,
+			@RequestParam(value = "priceLimit") String priceLimit, @RequestParam(value = "phone") String phone,
+			@RequestParam(value = "districtBox") String districtBox,
+			@RequestParam(value = "storeTypeBox") String storeTypeBox,
+			@RequestParam(value = "image") MultipartFile image) {
+		Store store = new Store();
+		store.setName(name);
+		store.setDescription(description);
+		store.setAddress(address);
+		store.setOpenHour(openHourBox);
+		store.setCloseHour(closeHourBox);
+		store.setPriceLimit(priceLimit);
+		store.setPhone(phone);
+		store.setDistrict(districtService.get(Integer.parseInt(districtBox)));
+		store.setStoreType(foodTypeService.get(Integer.parseInt(storeTypeBox)));
+		store.setIsConfirm(false);
+		ImageProcess imageProcess = new ImageProcess();
+		store.setImage(imageProcess.uploadImage(image, request, imageService));
+		try {
+			storeService.saveOrUpdate(store);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
 	}
 }

@@ -19,6 +19,8 @@
 					<span style="display:block;margin-left:10px;" class='title'>Phone : ${store.phone}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Hour : ${store.openHour} - ${store.closeHour}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Limit Price : ${store.priceLimit}</span>
+					<span style="display:block;margin-left:10px;color:red" class='title'>
+					<c:choose><c:when test="${store.isConfirm}">Confirmed</c:when><c:otherwise>Is not confirmed</c:otherwise></c:choose></span>
 				</div>
 			</div>
 		</div>
@@ -27,6 +29,15 @@
 			<div class="description">
 				${store.description}
 			</div>
+		</div>
+		<div class="row" style="width: 950px;margin-left: 50px;">
+			<h4 style="margin-left: 5px; font-size: 13px;font-weight: bold;">Food in '${store.name}'</h4>
+			<c:forEach var="food" items="${store.listFoods}">
+				<div class='col-lg-3'>
+					<a href="<c:url value='/food/${food.id}'/>" ><img style="margin-top: 10px;" width="150px" src="${food.image.absolutelyPath}"> </a> 
+					<span class="district-title" style="display:block;color:blue;font-weight: bold;font-size: 11px;">${food.name}</span>
+				</div>
+			</c:forEach>
 		</div>
 		<script src="<c:url value='/resources/default/js/page/storeHome.js'/>"></script>
 	</tiles:putAttribute>

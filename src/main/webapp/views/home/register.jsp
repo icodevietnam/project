@@ -89,7 +89,7 @@
 							</select>
 						</div>
 					</div>
-					<button type="button" onclick="insertItem();"
+					<button style="margin-left: 50px;" type="button" onclick="insertItem();"
 						class="btn btn-primary">Save</button>
 				</form>
 			</div>

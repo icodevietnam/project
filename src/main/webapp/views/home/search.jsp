@@ -3,87 +3,27 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${student == null }">
-	<c:redirect url="/accessDenied" />
-</c:if>
 <tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
-		<div class="row">
-			<div class="col-lg-11">
-				<c:if test="${student.certificated == null }">
-					<form id="newItemForm" class="form-horizontal"
-						action="<c:url value='/admin/score/new'/>" method="POST">
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Math</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="math" name="math">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Literity</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="literity"
-									name="literity">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Chemistry</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="chemistry"
-									name="chemistry">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">English</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="english"
-									name="english">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Physical</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="physical"
-									name="physical">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Biological</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="biological"
-									name="biological">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="conduct" class="col-sm-2 control-label">Conduct</label>
-							<div class="col-sm-10">
-								<select id="conductBox" class="conductBox combobox form-control"
-									data-style="btn-white" name="conductBox">
-									<option value="best">Best</option>
-									<option value="good">Good</option>
-									<option value="normal">Normal</option>
-									<option value="bad">Bad</option>
-								</select>
-							</div>
-						</div>
-						<button type="button" onclick="insertItem();"
-							class="btn btn-primary">Save</button>
-					</form>
-				</c:if>
-				<c:if test="${student.certificated != null }">
-					<div class="col-lg-7">
-						<ul class="list-group">
-							<li class="list-group-item">Math : ${student.certificated.math}</li>
-							<li class="list-group-item">English : ${student.certificated.english}</li>
-							<li class="list-group-item">Literity : ${student.certificated.literity}</li>
-							<li class="list-group-item">Chemistry : ${student.certificated.chemistry}</li>
-							<li class="list-group-item">Physical : ${student.certificated.physical}</li>
-							<li class="list-group-item">Biological${student.certificated.biological}</li>
-							<li class="list-group-item">Conduct : ${student.certificated.conduct}</li>
-						</ul>
-					</div>
-				</c:if>
-			</div>
+		<h4 style = "margin-left: 30px;color:red;">Key word search: ${keyword}</h4>
+		<div class="row" style="width: 980px;margin-left: 30px;">
+			<h4 style="margin-left: 5px; font-size: 13px;font-weight: bold;">Search by Store</h4>
+			<c:forEach var="store" items="${listStores}">
+				<div class='col-lg-3'>
+					<a href="<c:url value='/store/${store.id}'/>" ><img style="margin-top: 10px;" width="150px" src="${store.image.absolutelyPath}"> </a> 
+					<span class="district-title" style="display:block;color:blue;font-weight: bold;font-size: 11px;">${store.name}</span>
+					<span class="district-title" style="display:block;font-size: 11px;">Address: ${store.name}</span>
+				</div>
+			</c:forEach>
+		</div>
+		<div class="row" style="width: 980px;margin-left: 30px;">
+			<h4 style="margin-left: 5px; font-size: 13px;font-weight: bold;">Search by Food</h4>
+			<c:forEach var="food" items="${listFoods}">
+				<div class='col-lg-3'>
+					<a href="<c:url value='/food/${food.id}'/>" ><img style="margin-top: 10px;" width="150px" src="${food.image.absolutelyPath}"> </a> 
+					<span class="district-title" style="display:block;color:blue;font-weight: bold;font-size: 11px;">${food.name}</span>
+				</div>
+			</c:forEach>
 		</div>
 		<script src="<c:url value='/resources/default/js/page/scoreHome.js'/>"></script>
 	</tiles:putAttribute>

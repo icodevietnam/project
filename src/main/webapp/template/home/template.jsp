@@ -41,6 +41,7 @@
 <script src="<c:url value='/resources/default/js/bootstrap-select.js'/>"></script>
 <script
 	src="<c:url value='/resources/default/js/bootstrap-datepicker.js'/>"></script>
+	<script src="<c:url value='/resources/default/js/tinymce.min.js'/>"></script>
 <script
 	src="<c:url value='/resources/default/js/jquery.dataTables.js'/>"></script>
 <script
@@ -49,6 +50,15 @@
 <script
 	src="<c:url value='/resources/default/js/bootstrap-datepicker.js'/>"></script>
 <script src="<c:url value='/resources/default/js/bootstrap-select.js'/>"></script>
+<script>tinymce.init({
+    	selector:'textarea',
+    	  setup: function (editor) {
+    	        editor.on('change', function () {
+    	            editor.save();
+    	        });
+    	  }
+    });
+</script>
 </head>
 <body>
 	<div id="top">
@@ -65,7 +75,7 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">HCM</a>
+						<a class="navbar-brand" href="<c:url value='/home'/>">HCM</a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
@@ -77,7 +87,10 @@
 							<c:if test="${currentUser == null}">
 							<li><a href="#" data-toggle="modal"
 								data-target="#loginModal">Login</a></li>
-							<li><a href="#">Register</a></li>
+							<li><a href="<c:url value='/register'/>">Register</a></li>
+							</c:if>
+							<c:if test="${currentUser != null}">
+							<li><a href="<c:url value='/addStorePage'/>">Add Store</a></li>
 							</c:if>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -112,14 +125,14 @@
 				<img style="margin-left: -10px;" src="<c:url value='/resources/default/img/logo1.png'/>" />
 			</div>
 			<div class="col-lg-9">
-				<form style="margin-left: -120px;" class="form-inline">
+				<form method="get" action="<c:url value='/search/'/>" style="margin-left: -120px;" class="form-inline">
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputAmount">Amount (in
 							dollars)</label>
 						<div class="input-group">
 							<div class="input-group-addon">Search</div>
-							<input type="text" class="form-control" id="exampleInputAmount"
-								placeholder="Place, Address, Dishes ....">
+							<input type="text" class="form-control" id="keyword" name ="keyword"
+								placeholder="Store and Food....">
 						</div>
 					</div>
 					<button type="submit" class="btn btn-primary">Search</button>

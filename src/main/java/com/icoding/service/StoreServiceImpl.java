@@ -12,7 +12,7 @@ import com.icoding.domain.Store;
 
 @Service
 @Transactional
-public class StoreServiceImpl extends GenericServiceImpl<Store, Integer>implements StoreService {
+public class StoreServiceImpl extends GenericServiceImpl<Store, Integer> implements StoreService {
 
 	@Autowired
 	private StoreDao storeDao;
@@ -25,6 +25,11 @@ public class StoreServiceImpl extends GenericServiceImpl<Store, Integer>implemen
 	@Override
 	public List<Store> top8Stores() {
 		return storeDao.top8Stores();
+	}
+
+	@Override
+	public List<Store> searchStore(String keyword) {
+		return storeDao.searchStore(keyword);
 	}
 
 }

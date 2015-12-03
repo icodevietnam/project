@@ -147,37 +147,4 @@ public class StudentController extends GenericController {
 		}
 	}
 
-	@RequestMapping(value = "/student/new", method = RequestMethod.POST)
-	@ResponseBody
-	public String addStudent(@RequestParam(value = "password") String password,
-			@RequestParam(value = "userName") String userName,
-			@RequestParam(value = "fullname") String fullname,
-			@RequestParam(value = "birthDate") String birthDate,
-			@RequestParam(value = "email") String email,
-			@RequestParam(value = "address") String address,
-			@RequestParam(value = "phone") String phone,
-			@RequestParam(value = "state") String state,
-			@RequestParam(value = "gender") String gender) {
-		User user = new User();
-		user.setUsername(userName);
-		user.setPassword(encoder.encode(password));
-		user.setFullName(fullname);
-		user.setBirthDate(birthDate);
-		user.setAddress(address);
-		user.setEmail(email);
-		user.setRole(roleService.getRoleUser());
-		user.setState(state);
-		if (gender.equalsIgnoreCase("true")) {
-			user.setGender(true);
-		}
-		user.setGender(false);
-		user.setPhone(phone);
-		try {
-			userService.saveOrUpdate(user);
-			return "true";
-		} catch (Exception e) {
-			return "false";
-		}
-	}
-
 }

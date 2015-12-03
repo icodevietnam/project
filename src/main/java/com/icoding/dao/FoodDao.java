@@ -6,4 +6,6 @@ import com.icoding.domain.Food;
 
 public interface FoodDao extends GenericDao<Food, Integer> {
 	List<Food> top12Food();
+	
+	List<Food> searchFood(String keyword);
 }

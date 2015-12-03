@@ -20,4 +20,13 @@ public class FoodDaoImpl extends GenericDaoImpl<Food, Integer>implements FoodDao
 		return listFoods;
 	}
 
+	@Override
+	public List<Food> searchFood(String keyword) {
+		List<Food> listFoods = new ArrayList<Food>();
+		Query query = currentSession().createQuery("from Food f where f.name LIKE :keyword order by f.id desc");
+		query.setString("keyword", "%" + keyword + "%");
+		listFoods = query.list();
+		return listFoods;
+	}
+
 }

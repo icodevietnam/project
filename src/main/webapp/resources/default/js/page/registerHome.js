@@ -94,7 +94,7 @@ function insertItem() {
 		var state = $("#stateBox").val();
 		var phone = $("#phone").val();
 		$.ajax({
-			url : "/project/student/new",
+			url : "/project/userHome/new",
 			type : "POST",
 			data : {
 				userName : userName,

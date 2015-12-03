@@ -27,4 +27,9 @@ public class FoodServiceImpl extends GenericServiceImpl<Food, Integer>implements
 		return foodDao.top12Food();
 	}
 
+	@Override
+	public List<Food> searchFood(String keyword) {
+		return foodDao.searchFood(keyword);
+	}
+
 }
