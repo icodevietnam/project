@@ -74,7 +74,11 @@
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="#">Restaurant<span
 									class="sr-only">(current)</span></a></li>
-							<li><a href="#">Link</a></li>
+							<c:if test="${currentUser == null}">
+							<li><a href="#" data-toggle="modal"
+								data-target="#loginModal">Login</a></li>
+							<li><a href="#">Register</a></li>
+							</c:if>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -87,6 +91,10 @@
 									<li role="separator" class="divider"></li>
 									<li><a href="#">One more separated link</a></li>
 								</ul></li>
+							<c:if test="${currentUser != null}">
+							<li><a href="<c:url value='/member/logout'/>">Log Out
+									[${currentUser.fullName}]</a></li>
+							</c:if>
 						</ul>
 					</div>
 					<!-- /.navbar-collapse -->
@@ -145,7 +153,7 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">Login Student</h4>
+						<h4 class="modal-title" id="myModalLabel">Login User</h4>
 					</div>
 					<div class="modal-body">
 						<div class="input-group">

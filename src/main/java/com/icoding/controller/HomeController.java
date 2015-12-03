@@ -1,7 +1,6 @@
 package com.icoding.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,15 +20,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.icoding.domain.Certificated;
+import com.icoding.domain.District;
+import com.icoding.domain.Food;
 import com.icoding.domain.Program;
 import com.icoding.domain.Report;
+import com.icoding.domain.Store;
 import com.icoding.domain.User;
+import com.icoding.service.DistrictService;
+import com.icoding.service.FoodService;
 import com.icoding.service.ProgramService;
 import com.icoding.service.ReportService;
+import com.icoding.service.StoreService;
 import com.icoding.service.UserService;
 
 /**
@@ -52,6 +57,14 @@ public class HomeController extends GenericController {
 	@Autowired
 	private ReportService reportService;
 
+	@Autowired
+	private DistrictService districtService;
+
+	@Autowired
+	private FoodService foodService;
+
+	@Autowired
+	private StoreService storeService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -95,6 +108,9 @@ public class HomeController extends GenericController {
 	@RequestMapping(value = { "/home", "/member", "/" }, method = RequestMethod.GET)
 	public String displayHome(Locale locale, Model model) {
 		model.addAttribute("title", "Home");
+		model.addAttribute("listDistricts", districtService.getAll());
+		model.addAttribute("top12Foods", foodService.top12Food());
+		model.addAttribute("top8Stores", storeService.top8Stores());
 		return "home/index";
 	}
 
@@ -107,19 +123,19 @@ public class HomeController extends GenericController {
 	@RequestMapping(value = { "/member/login" }, method = RequestMethod.POST)
 	public String loginStudent(ModelMap model, HttpServletRequest request,
 			@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-		User student = userService.getUser(username);
+		User user = userService.getUser(username);
 		HttpSession session = request.getSession();
-		if (student != null) {
-			if (encoder.matches(password, student.getPassword())) {
+		if (user != null) {
+			if (encoder.matches(password, user.getPassword())) {
 				// session.setAttribute("student", student);
-				if (student.getRole().getName().equalsIgnoreCase("student")) {
+				if (user.getRole().getName().equalsIgnoreCase("user")) {
 					session.setAttribute("message", "");
-					session.setAttribute("student", student);
+					session.setAttribute("currentUser", user);
 				} else {
-					session.setAttribute("student", null);
+					session.setAttribute("currentUser", null);
 				}
 			} else {
-				session.setAttribute("student", null);
+				session.setAttribute("currentUser", null);
 			}
 		} else {
 			session.setAttribute("message", "Login Fail");
@@ -131,9 +147,9 @@ public class HomeController extends GenericController {
 	public String loginStudent(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			User student = (User) session.getAttribute("student");
-			if (student != null) {
-				session.setAttribute("student", null);
+			User user = (User) session.getAttribute("currentUser");
+			if (user != null) {
+				session.setAttribute("currentUser", null);
 			}
 		}
 		SecurityContextHolder.clearContext();
@@ -197,28 +213,33 @@ public class HomeController extends GenericController {
 		return "home/score";
 	}
 
-	@RequestMapping(value = { "/report/joinProgram" }, method = RequestMethod.POST)
-	@ResponseBody
-	public String joinProgram(@RequestParam(value = "stuId") String stuId, @RequestParam(value = "code") String code) {
-		Integer studentId = Integer.parseInt(stuId);
-		User student = userService.get(studentId);
-		Program program = programService.getProgram(code);
-		if (student != null && program != null) {
-			if (reportService.isReportExist(studentId, code)) {
-				return "false";
-			} else {
-				Report report = new Report();
-				report.setStudent(student);
-				report.setProgram(program);
-				report.setCreateDate(new Date());
-				report.setIsApproved(false);
-				report.setIsOverdue(false);
-				reportService.add(report);
-				return "true";
+	@RequestMapping(value = { "/district/{id}" })
+	public String loadByDistrict(Model model, @PathVariable(value = "id") String id) {
+		District district = districtService.get(Integer.parseInt(id));
+		List<Store> listStores = storeService.getAll();
+		List<Store> listByDistrict = new ArrayList<Store>();
+		for (Store store : listStores) {
+			if (store.getDistrict().getId() == Integer.parseInt(id)) {
+				listByDistrict.add(store);
 			}
-		} else {
-			return "false";
 		}
+		model.addAttribute("districtName", district.getName());
+		model.addAttribute("listStores", listByDistrict);
+		return "home/district";
 	}
-
+	
+	@RequestMapping(value = { "/food/{id}" })
+	public String loadFood(Model model, @PathVariable(value = "id") String id) {
+		Food food = foodService.get(Integer.parseInt(id));
+		model.addAttribute("food", food);
+		return "home/food";
+	}
+	
+	@RequestMapping(value = { "/store/{id}" })
+	public String loadStore(Model model, @PathVariable(value = "id") String id) {
+		Store store = storeService.get(Integer.parseInt(id));
+		model.addAttribute("store", store);
+		model.addAttribute("listFoods", store.getListFoods());
+		return "home/store";
+	}
 }

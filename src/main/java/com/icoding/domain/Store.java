@@ -46,6 +46,9 @@ public class Store {
 	@Column(name = "phone")
 	private String phone;
 
+	@Column(name = "is_confirm")
+	private Boolean isConfirm;
+
 	@ManyToOne
 	@JoinColumn(name = "storeType")
 	private FoodType storeType;
@@ -57,11 +60,38 @@ public class Store {
 	@ManyToOne
 	@JoinColumn(name = "district")
 	private District district;
-	
+
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
 	@Fetch(FetchMode.SELECT)
 	private List<Food> listFoods;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
+	@Fetch(FetchMode.SELECT)
+	private List<Comment> listComments;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
+	@Fetch(FetchMode.SELECT)
+	private List<Rating> listRatings;
+	
+	
+	public List<Rating> getListRatings() {
+		return listRatings;
+	}
+
+	public void setListRatings(List<Rating> listRatings) {
+		this.listRatings = listRatings;
+	}
+
+	public List<Comment> getListComments() {
+		return listComments;
+	}
+
+	public void setListComments(List<Comment> listComments) {
+		this.listComments = listComments;
+	}
 
 	public Integer getId() {
 		return id;
@@ -126,7 +156,7 @@ public class Store {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public FoodType getStoreType() {
 		return storeType;
 	}
@@ -157,6 +187,14 @@ public class Store {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Boolean getIsConfirm() {
+		return isConfirm;
+	}
+
+	public void setIsConfirm(Boolean isConfirm) {
+		this.isConfirm = isConfirm;
 	}
 
 }

@@ -60,7 +60,7 @@ public class UserController extends GenericController {
 	@Secured({ "ROLE_ADMIN", "ROLE_PVC"})
 	public String displayPage(Model model) {
 		List<Role> listRoles = new ArrayList<Role>();
-		listRoles = roleService.getAllNotUser();
+		listRoles = roleService.getAll();
 		model.addAttribute("pageName", "Manage User");
 		model.addAttribute("title", "Manage User");
 		model.addAttribute("listRoles", listRoles);

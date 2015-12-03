@@ -81,13 +81,16 @@ public class DistrictController {
 
 	@RequestMapping(value = "/district/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updatedistrict(HttpServletRequest request,@RequestParam(value = "districtId") String districtId,
-			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description, @RequestParam(value="image") MultipartFile image) {
+	public String updatedistrict(HttpServletRequest request, @RequestParam(value = "districtId") String districtId,
+			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description,
+			@RequestParam(value = "image") MultipartFile image) {
 		District district = districtService.get(Integer.parseInt(districtId));
 		district.setName(name);
 		district.setDescription(description);
-		ImageProcess imageProcess = new ImageProcess();
-		district.setImage(imageProcess.uploadImage(image, request, imageService));
+		if (!image.isEmpty()) {
+			ImageProcess imageProcess = new ImageProcess();
+			district.setImage(imageProcess.uploadImage(image, request, imageService));
+		}
 		try {
 			districtService.saveOrUpdate(district);
 			return "true";

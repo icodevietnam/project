@@ -111,8 +111,10 @@ public class FoodController {
 		food.setDescription(description);
 		food.setStore(storeService.get(Integer.parseInt(storeBox)));
 		food.setFoodType(foodTypeService.get(Integer.parseInt(foodTypeBox)));
-		ImageProcess imageProcess = new ImageProcess();
-		food.setImage(imageProcess.uploadImage(image, request, imageService));
+		if(!image.isEmpty()){
+			ImageProcess imageProcess = new ImageProcess();
+			food.setImage(imageProcess.uploadImage(image, request, imageService));
+		}
 		try {
 			foodService.saveOrUpdate(food);
 			return "true";

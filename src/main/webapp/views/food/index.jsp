@@ -120,7 +120,7 @@
 							<div class="form-group">
 								<label for="role" class="col-sm-2 control-label">Food Type</label>
 								<div class="col-sm-10">
-									<select name="foodTypeBox" class="form-control combobox" data-style="btn-white">
+									<select name="foodTypeBox" class="foodTypeBox form-control combobox" data-style="btn-white">
 										<c:forEach var="footType" items="${listFoodTypes}">
 											<option value="${footType.id}">${footType.name}</option>
 										</c:forEach>

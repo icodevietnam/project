@@ -55,7 +55,9 @@ public class User {
 	private String state;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+	@JoinTable(name = "user_roles", joinColumns = {
+			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private Role role;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
@@ -71,11 +73,29 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pl")
 	@Fetch(FetchMode.SELECT)
 	private List<Program> listProgramsByPL;
-	
+
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	@Fetch(FetchMode.SELECT)
 	private List<Report> listReportsByStudent;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@Fetch(FetchMode.SELECT)
+	private List<Comment> listComments;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@Fetch(FetchMode.SELECT)
+	private List<Rating> listRatings;
+
+	public List<Rating> getListRatings() {
+		return listRatings;
+	}
+
+	public void setListRatings(List<Rating> listRatings) {
+		this.listRatings = listRatings;
+	}
 
 	public Integer getId() {
 		return id;
@@ -188,5 +208,21 @@ public class User {
 	public void setListProgramsByPL(List<Program> listProgramsByPL) {
 		this.listProgramsByPL = listProgramsByPL;
 	}
-	
+
+	public List<Report> getListReportsByStudent() {
+		return listReportsByStudent;
+	}
+
+	public void setListReportsByStudent(List<Report> listReportsByStudent) {
+		this.listReportsByStudent = listReportsByStudent;
+	}
+
+	public List<Comment> getListComments() {
+		return listComments;
+	}
+
+	public void setListComments(List<Comment> listComments) {
+		this.listComments = listComments;
+	}
+
 }

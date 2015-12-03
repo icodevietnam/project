@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.icoding.domain.District;
 import com.icoding.domain.Image;
 import com.icoding.domain.Store;
 import com.icoding.service.DistrictService;
@@ -33,7 +32,7 @@ public class StoreController {
 
 	@Autowired
 	private FoodTypeService foodTypeService;
-	
+
 	@Autowired
 	private ImageService imageService;
 
@@ -58,14 +57,12 @@ public class StoreController {
 	@RequestMapping(value = "/store/new", method = RequestMethod.POST)
 	@ResponseBody
 	public String addfoodType(HttpServletRequest request, @RequestParam(value = "name") String name,
-			@RequestParam(value = "description") String description,
-			@RequestParam(value = "address") String address,
+			@RequestParam(value = "description") String description, @RequestParam(value = "address") String address,
 			@RequestParam(value = "openHourBox") String openHourBox,
 			@RequestParam(value = "closeHourBox") String closeHourBox,
-			@RequestParam(value = "priceLimit") String priceLimit,
-			@RequestParam(value = "phone") String phone,
-			@RequestParam(value="districtBox") String districtBox,
-			@RequestParam(value="storeTypeBox") String storeTypeBox,
+			@RequestParam(value = "priceLimit") String priceLimit, @RequestParam(value = "phone") String phone,
+			@RequestParam(value = "districtBox") String districtBox,
+			@RequestParam(value = "storeTypeBox") String storeTypeBox,
 			@RequestParam(value = "image") MultipartFile image) {
 		Store store = new Store();
 		store.setName(name);
@@ -86,7 +83,7 @@ public class StoreController {
 			return "false";
 		}
 	}
-	
+
 	@RequestMapping(value = "/store/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteDistrict(@RequestParam(value = "itemId") String itemId) {
@@ -105,28 +102,25 @@ public class StoreController {
 			return "false";
 		}
 	}
-	
+
 	@RequestMapping(value = "/store/get", method = RequestMethod.GET)
 	@ResponseBody
 	public Store getDistrict(@RequestParam(value = "itemId") String itemId) {
 		Store store = storeService.get(Integer.parseInt(itemId));
 		return store;
 	}
-	
+
 	@RequestMapping(value = "/store/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updatedistrict(HttpServletRequest request,@RequestParam(value = "storeId") String storeId,
-			@RequestParam(value = "name") String name,
-			@RequestParam(value = "description") String description,
-			@RequestParam(value = "address") String address,
-			@RequestParam(value = "openHourBox") String openHourBox,
+	public String updatedistrict(HttpServletRequest request, @RequestParam(value = "storeId") String storeId,
+			@RequestParam(value = "name") String name, @RequestParam(value = "description") String description,
+			@RequestParam(value = "address") String address, @RequestParam(value = "openHourBox") String openHourBox,
 			@RequestParam(value = "closeHourBox") String closeHourBox,
-			@RequestParam(value = "priceLimit") String priceLimit,
-			@RequestParam(value = "phone") String phone,
-			@RequestParam(value="districtBox") String districtBox,
-			@RequestParam(value="storeTypeBox") String storeTypeBox,
+			@RequestParam(value = "priceLimit") String priceLimit, @RequestParam(value = "phone") String phone,
+			@RequestParam(value = "districtBox") String districtBox,
+			@RequestParam(value = "storeTypeBox") String storeTypeBox,
 			@RequestParam(value = "image") MultipartFile image) {
-		Store store= storeService.get(Integer.parseInt(storeId));
+		Store store = storeService.get(Integer.parseInt(storeId));
 		store.setName(name);
 		store.setDescription(description);
 		store.setAddress(address);
@@ -136,8 +130,10 @@ public class StoreController {
 		store.setPhone(phone);
 		store.setDistrict(districtService.get(Integer.parseInt(districtBox)));
 		store.setStoreType(foodTypeService.get(Integer.parseInt(storeTypeBox)));
-		ImageProcess imageProcess = new ImageProcess();
-		store.setImage(imageProcess.uploadImage(image, request, imageService));
+		if (!image.isEmpty()) {
+			ImageProcess imageProcess = new ImageProcess();
+			store.setImage(imageProcess.uploadImage(image, request, imageService));
+		}
 		try {
 			storeService.saveOrUpdate(store);
 			return "true";

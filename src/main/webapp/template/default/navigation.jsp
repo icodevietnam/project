@@ -55,7 +55,6 @@
 			<li class="suply"><a href="index.html"><i class="fa fa-th-large"></i> <span
 				class="nav-label">Employee</span> <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level collapse">
-					<li><a href="<c:url value='/admin/student/list'/>">Manage User</a></li>
 					<li><a href="<c:url value='/admin/home'/>">Dashboard</a></li>
 				</ul>
 			</li>
