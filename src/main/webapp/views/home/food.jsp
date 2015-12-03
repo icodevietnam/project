@@ -19,7 +19,6 @@
 					<span style="display:block;margin-left:10px;" class='title'>Phone : ${food.store.phone}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Hour : ${food.store.openHour} - ${food.store.closeHour}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Limit Price : ${food.store.priceLimit}</span>
-					
 				</div>
 			</div>
 		</div>
