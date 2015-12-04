@@ -24,6 +24,14 @@ public class Comment {
 
 	@Column(name = "point")
 	private Integer point;
+	
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "store", nullable = true)

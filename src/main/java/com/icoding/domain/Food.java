@@ -47,7 +47,7 @@ public class Food {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "food")
 	@Fetch(FetchMode.SELECT)
 	private List<Comment> listComments;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -108,5 +108,14 @@ public class Food {
 	public void setListComments(List<Comment> listComments) {
 		this.listComments = listComments;
 	}
+
+	public List<Rating> getListRatings() {
+		return listRatings;
+	}
+
+	public void setListRatings(List<Rating> listRatings) {
+		this.listRatings = listRatings;
+	}
+	
 
 }

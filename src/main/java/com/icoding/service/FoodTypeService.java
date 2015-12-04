@@ -10,4 +10,6 @@ public interface FoodTypeService extends GenericService<FoodType, Integer> {
 	List<FoodType> listStoreType();
 	
 	List<FoodType> listFoodType();
+	
+	List<FoodType> listChild();
 }

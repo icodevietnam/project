@@ -5,6 +5,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
+		<span id="foodId" class="hide">${food.id}</span>
 		<div class="row" style="width:950px;margin-left: 30px;">
 			<div class="col-lg-2">
 				<img style="margin-top: 10px;" width="200px" src="${food.image.absolutelyPath}"> 
@@ -19,6 +20,11 @@
 					<span style="display:block;margin-left:10px;" class='title'>Phone : ${food.store.phone}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Hour : ${food.store.openHour} - ${food.store.closeHour}</span>
 					<span style="display:block;margin-left:10px;" class='title'>Limit Price : ${food.store.priceLimit}</span>
+					<span style="display:block;margin-left:10px;" class='title'>Rate Point : ${avgPointRate}</span>
+					<c:if test="${currentUser != null}">
+					<button class="btn btnPrimary" data-toggle="modal"
+								data-target="#ratingModal" type="button">Rate</button>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -28,7 +34,33 @@
 				${food.description}
 			</div>
 		</div>
-		<script src="<c:url value='/resources/default/js/page/storeHome.js'/>"></script>
+		<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="student">
+			<div class="modal-content">
+				<form id="ratingForm" action="<c:url value='/member/login'/>" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Rating</h4>
+					</div>
+					<div class="modal-body">
+						<div class="input-group">
+							<input id="numberPoint"
+								type="number" class="form-control" name="point" value="">
+						</div>
+					</div>
+					<span class="errot">${message}</span>
+					<div class="modal-footer">
+						<button type="button" onclick="rating()" class="btn btn-primary">Rate</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+		<script src="<c:url value='/resources/default/js/page/foodHome.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
 

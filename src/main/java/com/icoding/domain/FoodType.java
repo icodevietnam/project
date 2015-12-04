@@ -52,6 +52,16 @@ public class FoodType {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "storeType")
 	@Fetch(FetchMode.SELECT)
 	private List<Store> listStores;
+	
+	
+	
+	public List<Store> getListStores() {
+		return listStores;
+	}
+
+	public void setListStores(List<Store> listStores) {
+		this.listStores = listStores;
+	}
 
 	public Integer getId() {
 		return id;

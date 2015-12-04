@@ -5,7 +5,7 @@
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-12">
 				<div class="ibox">
 					<div class="ibox-content">
 						<a href="<c:url value='/admin/store/list'/>" class="btn-link">
@@ -34,7 +34,7 @@
 						<h4 class="modal-title" id="myModalLabel">Add Store</h4>
 					</div>
 					<form id="newItemForm" class="form-horizontal"
-						action="<c:url value='/admin/store/new'/>" method="POST">
+						 method="POST">
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label">Name</label>

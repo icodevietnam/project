@@ -111,6 +111,8 @@ function displayTable() {
 						i,
 						value.name,value.address,value.district.name,value.storeType.name,
 						"<img width='200px' alt='"+value.image.name+"' src='"+value.image.absolutelyPath+"' />",
+						value.isConfirm == true ? 'Is Confirmed' : "<button class='btn btn-sm btn-primary' onclick='confirmItem("
+							+ value.id + ")' >Set Confirm</button>",
 						"<button class='btn btn-sm btn-primary' onclick='editItem("
 								+ value.id + ")' >Edit</button>",
 						"<button class='btn btn-sm btn-danger' onclick='deleteItem("
@@ -137,6 +139,8 @@ function displayTable() {
 					"sTitle" : "Type"
 				},{
 					"sTitle" : "Image"
+				},{
+					"sTitle" : "Confirm"
 				},
 				{
 					"sTitle" : "Sửa"
@@ -187,6 +191,20 @@ function deleteItem(id) {
 			}
 		});
 	}
+}
+
+function confirmItem(id){
+	$.ajax({
+		url : "/project/store/confirm",
+		type : "POST",
+		data :{
+			id :id
+		},
+		dataType : "JSON",
+		success : function(response) {
+			displayTable();
+		},
+	});
 }
 
 function editedItem() {

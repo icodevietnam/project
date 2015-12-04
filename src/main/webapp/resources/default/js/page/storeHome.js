@@ -1,95 +1,123 @@
 $(function() {
 	$('.combobox').selectpicker();
-
-	$("#newItemForm").validate({
+	displayComment();
+	
+	$("#ratingForm").validate({
 		rules : {
-			math : {
-				required : true,
+			point:{
+				required:true,
 				min : 0,
-				max : 100
-			},
-			literity : {
-				required : true,
-				min : 0,
-				max : 100
-			},
-			chemistry : {
-				required : true,
-				min : 0,
-				max : 100
-			},
-			physical : {
-				required : true,
-				min : 0,
-				max : 100
-			},
-			biological : {
-				required : true,
-				min : 0,
-				max : 100
+				max : 10
 			}
 		},
 		messages : {
-			math : {
-				required : "Math is not blank",
-				min : "Min value is 0",
-				max : "Max value is 100"
+			point:{
+				required:"Point is not blank",
+				min:"Min is 0",
+				max:"Max is 10"
+			}
+		}
+	});
+	
+	$("#addCommentForm").validate({
+		rules : {
+			title:{
+				required:true
 			},
-			literity : {
-				required : "Literity is not blank",
-				min : "Min value is 0",
-				max : "Max value is 100"
+			content:{
+				required:true
 			},
-			chemistry : {
-				required : "Chemistry is not blank",
-				min : "Min value is 0",
-				max : "Max value is 100"
-			},
-			physical : {
-				required : "Physical is not blank",
-				min : "Min value is 0",
-				max : "Max value is 100"
-			},
-			biological : {
-				required : "Biological is not blank",
-				min : "Min value is 0",
-				max : "Max value is 100"
+			point:{
+				required:true,
+				min : 0,
+				max : 10
 			}
 		},
+		messages : {
+			title:{
+				required:"Title is not blank"
+			},
+			content:{
+				required:"Content is not blank"
+			},
+			point:{
+				required:"Point is not blank",
+				min:"Min is 0",
+				max:"Max is 10"
+			}
+		}
 	});
 });
 
-function insertItem() {
-	if ($("#newItemForm").valid()) {
-		var math = $("#math").val();
-		var literity = $("#literity").val();
-		var chemistry = $("#chemistry").val();
-		var english = $("#english").val();
-		var physical = $("#physical").val();
-		var biological = $("#biological").val();
-		var conduct = $("#conductBox").val();
+function comment() {
+	tinymce.triggerSave();
+	if ($("#addCommentForm").valid()) {
+		var title = $("#titleStore").val();
+		var content = tinyMCE.get('content').getContent();;
+		var point = $("#point").val();
+		var storeId = $("#storeId").html();
 		$.ajax({
-			url : "/project/score/new",
+			url : "/project/comment/add",
 			type : "POST",
 			data : {
-				math : math,
-				literity : literity,
-				chemistry : chemistry,
-				physical : physical,
-				english : english,
-				biological : biological,
-				conduct : conduct,
+				title :  title,
+				content : content,
+				point : point,
+				storeId: storeId
 			},
 			dataType : "JSON",
 			success : function(response) {
-				if (response == true) {
-					alert("Insert successfully");
-				} else {
-					alert("Insert fail");
-				}
+				$("#titleStore").val("");
+				$("#point").val("");
+				tinyMCE.activeEditor.setContent("");
 			},
 			complete : function() {
-				$("#newItemForm").hide();
+				displayComment();
+			}
+		});
+	}
+}
+
+function displayComment(){
+	var storeId = $("#storeId").html();
+	$(".comment-content").empty();
+	$.ajax({
+		url : "/project/comment/listCommentByStore",
+		type : "POST",
+		data : {
+			storeId: storeId
+		},
+		dataType : "JSON",
+		success : function(response) {
+			$.each(response,function(key,value){
+				$(".comment-content").append("" +
+				"<span style='background:black;padding-left:20px;color:white;height:30px;display:block;' class='title'>Title:  "+value.title+"</span>"
+				+"<span style='display:block;padding-left:20px;' class='name'>Point: "+value.point+" - User:  "+value.user.username+" says:</span>"
+				+"<span style='display:block;padding-left:20px;border-bottom:1px #000 dotted;' class='content'>"+value.content+"</span>" 
+				+"");
+			});
+		},
+		complete : function() {
+		}
+	});
+}
+
+function rating(){
+	if ($("#ratingForm").valid()) {
+		var point = $("#numberPoint").val();
+		var storeId = $("#storeId").html();
+		$.ajax({
+			url : "/project/rating/add",
+			type : "POST",
+			data : {
+				point : point,
+				storeId: storeId
+			},
+			dataType : "JSON",
+			success : function(response) {
+			},
+			complete : function() {
+				$("#ratingModal").modal("hide");
 			}
 		});
 	}

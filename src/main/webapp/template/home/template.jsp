@@ -82,8 +82,26 @@
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">Restaurant<span
-									class="sr-only">(current)</span></a></li>
+							<c:forEach var="ft" items="${listParent}">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">${ft.name}<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<c:forEach var="ftChild" items="${listChild}">
+										<c:if test="${ftChild.foodType.id == ft.id }">
+											<li><a href="/<c:choose>
+											<c:when test="${ftChild.type eq 0}">
+												project/cat/store/
+											</c:when>
+											<c:otherwise>
+												project/cat/food/
+											</c:otherwise>
+											</c:choose>${ftChild.id}">${ftChild.name}</a></li>
+										</c:if>
+									</c:forEach>
+								</ul>
+								</li>
+							</c:forEach>
 							<c:if test="${currentUser == null}">
 							<li><a href="#" data-toggle="modal"
 								data-target="#loginModal">Login</a></li>

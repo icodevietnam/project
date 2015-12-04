@@ -141,4 +141,17 @@ public class StoreController {
 			return "false";
 		}
 	}
+	
+	@RequestMapping(value = "/store/confirm", method = RequestMethod.POST)
+	@ResponseBody
+	public String confirmStore(@RequestParam(value="id") String id) {
+		Store store = storeService.get(Integer.parseInt(id));
+		store.setIsConfirm(true);
+		try {
+			storeService.saveOrUpdate(store);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
+	}
 }

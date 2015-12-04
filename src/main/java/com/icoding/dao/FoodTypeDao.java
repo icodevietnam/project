@@ -10,4 +10,6 @@ public interface FoodTypeDao extends GenericDao<FoodType, Integer> {
 	List<FoodType> listStoreType();
 	
 	List<FoodType> listFoodType();
+	
+	List<FoodType> listChild();
 }

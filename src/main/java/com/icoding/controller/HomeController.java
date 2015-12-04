@@ -24,17 +24,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.icoding.domain.Certificated;
+import com.icoding.domain.Comment;
 import com.icoding.domain.District;
 import com.icoding.domain.Food;
+import com.icoding.domain.FoodType;
 import com.icoding.domain.Program;
+import com.icoding.domain.Rating;
 import com.icoding.domain.Report;
 import com.icoding.domain.Store;
 import com.icoding.domain.User;
+import com.icoding.service.CommentService;
 import com.icoding.service.DistrictService;
 import com.icoding.service.FoodService;
 import com.icoding.service.FoodTypeService;
 import com.icoding.service.ImageService;
 import com.icoding.service.ProgramService;
+import com.icoding.service.RatingService;
 import com.icoding.service.ReportService;
 import com.icoding.service.RoleService;
 import com.icoding.service.StoreService;
@@ -118,12 +123,16 @@ public class HomeController extends GenericController {
 		model.addAttribute("listDistricts", districtService.getAll());
 		model.addAttribute("top12Foods", foodService.top12Food());
 		model.addAttribute("top8Stores", storeService.top8Stores());
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/index";
 	}
 
 	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
 	public String displayRegisterPage(Locale locale, Model model) {
 		model.addAttribute("title", "Register");
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/register";
 	}
 
@@ -220,6 +229,24 @@ public class HomeController extends GenericController {
 		return "home/score";
 	}
 
+	@RequestMapping(value = { "/cat/store/{id}" })
+	public String catStore(Model model, @PathVariable(value = "id") String id) {
+		FoodType foodType = foodTypeService.get(Integer.parseInt(id));
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
+		model.addAttribute("listStores", foodType.getListStores());
+		return "home/catStore";
+	}
+	
+	@RequestMapping(value = { "/cat/food/{id}" })
+	public String catFood(Model model, @PathVariable(value = "id") String id) {
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
+		FoodType foodType = foodTypeService.get(Integer.parseInt(id));
+		model.addAttribute("listFoods", foodType.getListFoods());
+		return "home/catFood";
+	}
+	
 	@RequestMapping(value = { "/district/{id}" })
 	public String loadByDistrict(Model model, @PathVariable(value = "id") String id) {
 		District district = districtService.get(Integer.parseInt(id));
@@ -232,21 +259,62 @@ public class HomeController extends GenericController {
 		}
 		model.addAttribute("districtName", district.getName());
 		model.addAttribute("listStores", listByDistrict);
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/district";
 	}
 
 	@RequestMapping(value = { "/food/{id}" })
 	public String loadFood(Model model, @PathVariable(value = "id") String id) {
 		Food food = foodService.get(Integer.parseInt(id));
+		List<Rating> listRatings = food.getListRatings();
+		int totalRate = 0;
+
+		for(Rating rating: listRatings){
+			totalRate+= rating.getPoint();
+		}
+		Double avgRate = (double) 0;
+		if(listRatings.size()!=0){
+		 avgRate = (double) (totalRate/listRatings.size());
+		}
+		else {
+			avgRate = (double) 0;
+		}
+		model.addAttribute("avgPointRate", avgRate);
 		model.addAttribute("food", food);
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/food";
 	}
 
 	@RequestMapping(value = { "/store/{id}" })
 	public String loadStore(Model model, @PathVariable(value = "id") String id) {
 		Store store = storeService.get(Integer.parseInt(id));
+		List<Comment> listComments = store.getListComments();
+		List<Rating> listRatings = store.getListRatings();
+		int total = 0;
+		int totalRate = 0;
+		for(Comment comment: listComments){
+			total+= comment.getPoint();
+		}
+		
+		for(Rating rating: listRatings){
+			totalRate+= rating.getPoint();
+		}
+		Double avg = 0.0;
+		Double avgRate = 0.0;
+		if(listComments.size()!=0){
+		avg = (double) (total/listComments.size());
+		}
+		if(listRatings.size()!=0){
+		avgRate = (double) (totalRate/listRatings.size());
+		}
 		model.addAttribute("store", store);
+		model.addAttribute("avgPoint", avg);
+		model.addAttribute("avgPointRate", avgRate);
 		model.addAttribute("listFoods", store.getListFoods());
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/store";
 	}
 
@@ -256,6 +324,8 @@ public class HomeController extends GenericController {
 		List<Store> listStores = storeService.searchStore(keyword);
 		model.addAttribute("listFoods", listFoods);
 		model.addAttribute("listStores", listStores);
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		model.addAttribute("keyword", keyword);
 		return "home/search";
 	}
@@ -296,12 +366,14 @@ public class HomeController extends GenericController {
 	public String addUserHome(Model model) {
 		model.addAttribute("listDistricts", districtService.getAll());
 		model.addAttribute("listStoreTypes", foodTypeService.listStoreType());
+		model.addAttribute("listParent", foodTypeService.listParent());
+		model.addAttribute("listChild", foodTypeService.listChild());
 		return "home/addstore";
 	}
-	
+
 	@Autowired
 	private ImageService imageService;
-	
+
 	@RequestMapping(value = "/storePage/new", method = RequestMethod.POST)
 	@ResponseBody
 	public String addfoodType(HttpServletRequest request, @RequestParam(value = "name") String name,
@@ -331,5 +403,82 @@ public class HomeController extends GenericController {
 		} catch (Exception e) {
 			return "false";
 		}
+	}
+
+	@Autowired
+	private CommentService commentService;
+
+	@RequestMapping(value = "/comment/add", method = RequestMethod.POST)
+	@ResponseBody
+	public String addCommentHome(Model model, @RequestParam(value = "title") String title,
+			@RequestParam(value = "content") String content, @RequestParam(value = "point") String point,
+			@RequestParam(value = "storeId") String storeId, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+		Store store = storeService.get(Integer.parseInt(storeId));
+		Comment comment = new Comment();
+		comment.setTitle(title);
+		comment.setContent(content);
+		comment.setPoint(Integer.parseInt(point));
+		comment.setUser(user);
+		comment.setStore(store);
+		try {
+			commentService.saveOrUpdate(comment);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
+	}
+	
+	@Autowired
+	private RatingService ratingService;
+	
+	@RequestMapping(value = "/rating/add", method = RequestMethod.POST)
+	@ResponseBody
+	public String addRatingHome(Model model,@RequestParam(value = "point") String point,
+			@RequestParam(value = "storeId") String storeId, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+		Store store = storeService.get(Integer.parseInt(storeId));
+		Rating rating = new Rating();
+		rating.setPoint(Integer.parseInt(point));
+		rating.setUser(user);
+		rating.setStore(store);
+		try {
+			ratingService.saveOrUpdate(rating);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
+	}
+	
+	@RequestMapping(value = "/ratingFood/add", method = RequestMethod.POST)
+	@ResponseBody
+	public String addRatingHomeFood(Model model,@RequestParam(value = "point") String point,
+			@RequestParam(value = "foodId") String foodId, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+		Food food = foodService.get(Integer.parseInt(foodId));
+		Rating rating = new Rating();
+		rating.setPoint(Integer.parseInt(point));
+		rating.setUser(user);
+		rating.setFood(food);
+		try {
+			ratingService.saveOrUpdate(rating);
+			return "true";
+		} catch (Exception e) {
+			return "false";
+		}
+	}
+	
+	@RequestMapping(value = "/comment/listCommentByStore", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Comment> listCommentByStore(@RequestParam(value = "storeId") String storeId, Model model){
+		List<Comment> listComments = commentService.getAll();
+		Integer cmtId = Integer.parseInt(storeId);
+		List<Comment> filterList = new ArrayList<Comment>();
+		for(Comment comment : listComments){
+			if(comment.getStore().getId() == cmtId){
+				filterList.add(comment);
+			}
+		}
+		return filterList;
 	}
 }
